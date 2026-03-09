@@ -10,40 +10,42 @@ import os
 sys.path.insert(0, os.path.dirname(__file__))
 
 # 直接 import 各 tool 模块中的函数（绕过 MCP 框架，直接调用底层 async 函数）
-from lib.http import get, post, extract_data, MAGIC_API_BASE_URL
+from lib.http import get, post, extract_data, API_BASE_URL
 
 
 # ─── 直接复用各工具的业务逻辑 ────────────────────────────────────────────────
 
 async def tool_get_community_list():
-    result = await post("/server/community/list")
+    result = await post("/community/list")
     data = result.get("data", [])
     return f"共 {len(data)} 个社区：" + ", ".join(data)
 
 async def tool_get_metric_dict():
-    result = await get("/server/dict/metric", base_url=MAGIC_API_BASE_URL)
+    result = await get("/dict/metric")
     data = extract_data(result)
-    return "\n".join([f"  [{m['name']}] {m['name_zh']} ({m['unit']})" for m in (data or [])])
+    return "\n".join([f"  [{m['name']}] {m['name_zh']} — {m.get('areasofuse_zh','')}" for m in (data or [])])
 
 async def tool_get_project_hotspot():
-    result = await get("/server/project/hotspot", base_url=MAGIC_API_BASE_URL)
+    result = await post("/project/hotspot")
     data = extract_data(result)
     if not data:
         return "（数据库暂无数据）"
     return "\n".join([f"  {r['repo_name']} 更新于 {r['updated_at']}" for r in data])
 
 async def tool_get_project_active():
-    result = await get("/server/project/active", base_url=MAGIC_API_BASE_URL)
-    data = extract_data(result)
+    result = await post("/project/active")
+    if result.get("code") != 1:
+        return f"API 错误：{result.get('message', '未知错误')}"
+    data = extract_data(result) or {}
     return f"总仓库 {data.get('total_repos')}，活跃 {data.get('active_repos')}，非活跃 {data.get('inactive_repos')}"
 
 async def tool_get_project_topn_company_pr():
-    result = await post("/server/project/topn/company/pr")
+    result = await post("/project/topn/company/pr")
     data = extract_data(result)
     return "\n".join([f"  {i+1}. {d['company']} {d['count']} PR ({d['percentage']}%)" for i, d in enumerate(data or [])])
 
 async def tool_get_project_topn_user_pr():
-    result = await post("/server/project/topn/user/pr")
+    result = await post("/project/topn/user/pr")
     data = extract_data(result)
     return "\n".join([f"  {i+1}. {d['name']}({d['user']}) {d['count']} PR [{d['company']}]" for i, d in enumerate(data or [])])
 
@@ -52,9 +54,11 @@ async def tool_get_issues_aggregate(community=""):
     if community:
         body["community"] = community
     result = await post("/query/issues/agg", body)
-    data = extract_data(result)
-    return (f"总数 {data['total_count']}，开启 {data['open_count']}，关闭 {data['closed_count']}，"
-            f"关闭率 {data['closed_ratio']}，平均响应 {data['avg_first_reply_time']} 天")
+    if result.get("code") != 1:
+        return f"API 错误：{result.get('message', '未知错误')}"
+    data = extract_data(result) or {}
+    return (f"总数 {data.get('total_count')}，开启 {data.get('open_count')}，关闭 {data.get('closed_count')}，"
+            f"关闭率 {data.get('closed_ratio')}，平均响应 {data.get('avg_first_reply_time')} 天")
 
 async def tool_get_issues_by_sig(community=""):
     body = {}
@@ -70,9 +74,11 @@ async def tool_get_prs_aggregate(community=""):
     if community:
         body["community"] = community
     result = await post("/query/prs/agg", body)
-    data = extract_data(result)
-    return (f"总数 {data['total_count']}，开启 {data['open_count']}，合并 {data['merged_count']}，"
-            f"合并率 {data['merged_ratio']}，关闭率 {data['closed_ratio']}")
+    if result.get("code") != 1:
+        return f"API 错误：{result.get('message', '未知错误')}"
+    data = extract_data(result) or {}
+    return (f"总数 {data.get('total_count')}，开启 {data.get('open_count')}，合并 {data.get('merged_count')}，"
+            f"合并率 {data.get('merged_ratio')}，关闭率 {data.get('closed_ratio')}")
 
 async def tool_get_prs_by_sig(community=""):
     body = {}
@@ -98,23 +104,29 @@ async def tool_get_cla_stats(community="openubmc", start_time="", end_time=""):
         body["start_time"] = start_time
     if end_time:
         body["end_time"] = end_time
-    result = await post("/server/cla/stats", body)
-    data = result.get("data", {})
-    return f"总计 {data['total']}，企业 {data['enterprise']}，个人 {data['individual']}"
+    result = await post("/cla/stats", body)
+    if result.get("code") != 1:
+        return f"API 错误：{result.get('message', '未知错误')}"
+    data = result.get("data") or {}
+    return f"总计 {data.get('total')}，企业 {data.get('enterprise')}，个人 {data.get('individual')}"
 
 async def tool_get_cla_trend(community="openubmc", interval="month"):
-    result = await post("/server/cla/trend", {"community": community, "interval": interval})
-    data = result.get("data", [])
+    result = await post("/cla/trend", {"community": community, "interval": interval})
+    if result.get("code") != 1:
+        return f"API 错误：{result.get('message', '未知错误')}"
+    data = result.get("data") or []
     return "\n".join([f"  {d['date']}：总 {d['total']}，企业 {d['enterprise']}，个人 {d['individual']}" for d in data])
 
 async def tool_get_cla_user_list(community="openubmc", page=1, page_size=5):
-    result = await post("/server/cla/page", {"community": community, "page": page, "pageSize": page_size})
-    data = result.get("data", {})
+    result = await post("/cla/page", {"community": community, "page": page, "pageSize": page_size})
+    if result.get("code") != 1:
+        return f"API 错误：{result.get('message', '未知错误')}"
+    data = result.get("data") or {}
     user_list = data.get("list", [])
     total = data.get("total", 0)
     lines = [f"共 {total} 人："]
     for u in user_list:
-        lines.append(f"  {u['name']} ({u['email']}) [{u['sign_type']}] {u['company']}")
+        lines.append(f"  {u.get('name')} ({u.get('email')}) [{u.get('sign_type')}] {u.get('company')}")
     return "\n".join(lines)
 
 async def tool_get_ci_metrics(community=""):
@@ -122,16 +134,18 @@ async def tool_get_ci_metrics(community=""):
     if community:
         body["community"] = community
     result = await post("/project/ci/metric", body)
-    data = extract_data(result)
-    return (f"总运行 {data['total_runs']}，成功 {data['success_count']}，失败 {data['failed_count']}，"
-            f"成功率 {data['success_rate']*100:.0f}%，平均时长 {data['avg_duration']} 分钟")
+    if result.get("code") != 1:
+        return f"API 错误：{result.get('message', '未知错误')}"
+    data = extract_data(result) or {}
+    return (f"总运行 {data.get('total_runs')}，成功 {data.get('success_count')}，失败 {data.get('failed_count')}，"
+            f"成功率 {data.get('success_rate', 0)*100:.0f}%，平均时长 {data.get('avg_duration')} 分钟")
 
 async def tool_get_community_health(community="openEuler"):
     """调用已有的健康度接口"""
     from tools.health import COMMUNITY_MAP, METRIC_LABELS
     key = community.strip().lower()
     api_community = COMMUNITY_MAP.get(key, community)
-    result = await get(f"/server/health/{api_community}/metric", params={"mode": "general"})
+    result = await get(f"/health/{api_community}/metric", params={"mode": "general"})
     if result.get("code") != 1:
         return f"API 错误：{result.get('message', '未知错误')}"
     data = result.get("data")
@@ -205,7 +219,7 @@ async def run_tests():
     print("=" * 70)
     print("  MCP 工具测试报告 — om-metrics MCP Server")
     print("=" * 70)
-    print(f"  后端：http://localhost:9999 (MagicAPI)")
+    print(f"  远程 API：{API_BASE_URL}")
     print(f"  共 {len(TESTS)} 个测试场景\n")
 
     passed = 0

@@ -60,7 +60,7 @@ def register(mcp: FastMCP):
             available = ", ".join(sorted(COMMUNITY_MAP.keys()))
             return f"未找到社区 '{community}'，可用社区（小写）：{available}"
 
-        result = await get(f"/server/health/{api_community}/metric", params={"mode": "general"})
+        result = await get(f"/health/{api_community}/metric", params={"mode": "general"})
 
         if result.get("code") != 1:
             return f"API 返回错误：{result.get('message', '未知错误')}"

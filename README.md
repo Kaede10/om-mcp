@@ -18,13 +18,13 @@ OpenMetrics MCP Server - 为 Claude Desktop 提供开源社区数据查询能力
 ### 前置要求
 
 - Python 3.8+
-- 后端 MagicAPI 服务运行在 `http://localhost:9999`
+- 网络连接（调用远程 API：`https://datastat.osinfra.cn/server/`）
 
 ### 安装步骤
 
-1. 克隆仓库：
+1. 下载或克隆仓库到本地目录：
 ```bash
-cd /home/zhongjun/claude/om-data/om-mcp
+cd /path/to/your/om-mcp
 ```
 
 2. 安装依赖：
@@ -55,11 +55,13 @@ python -m mcp
     "om-metrics": {
       "command": "python",
       "args": ["-m", "mcp"],
-      "cwd": "/home/zhongjun/claude/om-data/om-mcp"
+      "cwd": "/path/to/your/om-mcp"
     }
   }
 }
 ```
+
+**注意**：将 `/path/to/your/om-mcp` 替换为你实际下载的目录路径。
 
 重启 Claude Desktop 后即可使用。
 
@@ -80,7 +82,7 @@ CANN 社区有多少个参与的企业？
 
 ```
 om-mcp/
-├── main.py              # MCP 服务器入口
+├── server.py            # MCP 服务器入口
 ├── lib/
 │   └── http.py         # HTTP 请求封装
 ├── tools/
@@ -104,7 +106,7 @@ python test_mcp.py
 1. 在 `tools/` 目录下创建新的 Python 文件
 2. 定义 `register(mcp: FastMCP)` 函数
 3. 使用 `@mcp.tool()` 装饰器注册工具
-4. 在 `main.py` 中导入并注册
+4. 在 `server.py` 中导入并注册
 
 示例：
 ```python
@@ -121,9 +123,9 @@ def register(mcp: FastMCP):
 
 ## 后端 API 说明
 
-本 MCP 服务器依赖后端 MagicAPI 服务，默认地址：`http://localhost:9999`
+本 MCP 服务器调用远程 API 服务，地址：`https://datastat.osinfra.cn/server/`
 
-如需修改后端地址，编辑 `lib/http.py` 中的 `MAGIC_API_BASE_URL` 变量。
+如需修改 API 地址，编辑 `lib/http.py` 中的 `API_BASE_URL` 变量。
 
 ## 故障排查
 
@@ -135,7 +137,7 @@ def register(mcp: FastMCP):
 
 ### 查询返回错误
 
-1. 确认后端 MagicAPI 服务运行正常：`curl http://localhost:9999`
+1. 确认网络连接正常，可访问远程 API：`curl https://datastat.osinfra.cn/server/`
 2. 检查社区名称是否正确（使用 `list_communities` 工具查看支持的社区）
 3. 查看 `test_mcp.py` 测试结果
 

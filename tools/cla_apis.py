@@ -46,7 +46,7 @@ def register(mcp: FastMCP):
         if end_time:
             body["end_time"] = end_time
 
-        result = await post("/server/cla/page", body)
+        result = await post("/cla/page", body)
         if result.get("code") != 1:
             return f"API 错误：{result.get('message', '未知错误')}"
         data = result.get("data", {})
@@ -80,7 +80,7 @@ def register(mcp: FastMCP):
         if end_time:
             body["end_time"] = end_time
 
-        result = await post("/server/cla/stats", body)
+        result = await post("/cla/stats", body)
         if result.get("code") != 1:
             return f"API 错误：{result.get('message', '未知错误')}"
         data = result.get("data", {})
@@ -113,7 +113,7 @@ def register(mcp: FastMCP):
         if end_time:
             body["end_time"] = end_time
 
-        result = await post("/server/cla/trend", body)
+        result = await post("/cla/trend", body)
         if result.get("code") != 1:
             return f"API 错误：{result.get('message', '未知错误')}"
         data = result.get("data", [])

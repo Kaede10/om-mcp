@@ -1,6 +1,6 @@
 import json
 from mcp.server.fastmcp import FastMCP
-from lib.http import get, post, extract_data, MAGIC_API_BASE_URL
+from lib.http import get, post, extract_data
 
 
 def register(mcp: FastMCP):
@@ -8,7 +8,7 @@ def register(mcp: FastMCP):
     @mcp.tool()
     async def get_community_list() -> str:
         """获取所有支持的开源社区列表。适用于 PPT 中展示社区全景图，或作为其他查询的前置步骤。"""
-        result = await post("/server/community/list")
+        result = await post("/community/list")
         if result.get("code") != 1:
             return f"API 错误：{result.get('message', '未知错误')}"
         data = result.get("data", [])
@@ -20,7 +20,7 @@ def register(mcp: FastMCP):
     @mcp.tool()
     async def get_metric_dict() -> str:
         """获取指标字典，包含所有可用指标的名称、中文名、单位和定义。适用于 PPT 数据说明页。"""
-        result = await get("/server/dict/metric", base_url=MAGIC_API_BASE_URL)
+        result = await get("/dict/metric")
         if result.get("code") != 1:
             return f"API 错误：{result.get('message', '未知错误')}"
         data = extract_data(result)
@@ -28,13 +28,13 @@ def register(mcp: FastMCP):
             return "暂无指标数据"
         lines = ["指标字典："]
         for m in data:
-            lines.append(f"  [{m.get('name')}] {m.get('name_zh')} — 单位：{m.get('unit')}，说明：{m.get('definition')}")
+            lines.append(f"  [{m.get('name')}] {m.get('name_zh')} — 说明：{m.get('definition')} — 适用范围：{m.get('areasofuse_zh')}")
         return "\n".join(lines)
 
     @mcp.tool()
     async def get_project_hotspot() -> str:
         """获取最近更新的热点仓库列表（按更新时间倒序前10个）。适用于 PPT 展示社区近期热点动态。"""
-        result = await get("/server/project/hotspot", base_url=MAGIC_API_BASE_URL)
+        result = await post("/project/hotspot")
         if result.get("code") != 1:
             return f"API 错误：{result.get('message', '未知错误')}"
         data = extract_data(result)
@@ -48,7 +48,7 @@ def register(mcp: FastMCP):
     @mcp.tool()
     async def get_project_repo_list() -> str:
         """获取仓库列表（最近更新的 50 个）。适用于 PPT 展示社区仓库规模总览。"""
-        result = await get("/server/project/repolist", base_url=MAGIC_API_BASE_URL)
+        result = await post("/project/repolist")
         if result.get("code") != 1:
             return f"API 错误：{result.get('message', '未知错误')}"
         data = extract_data(result)
@@ -62,7 +62,7 @@ def register(mcp: FastMCP):
     @mcp.tool()
     async def get_project_active() -> str:
         """获取活跃仓库统计（总仓库数、活跃数、非活跃数）。适用于 PPT 展示社区整体活跃情况。"""
-        result = await get("/server/project/active", base_url=MAGIC_API_BASE_URL)
+        result = await post("/project/active")
         if result.get("code") != 1:
             return f"API 错误：{result.get('message', '未知错误')}"
         data = extract_data(result)
@@ -92,7 +92,7 @@ def register(mcp: FastMCP):
         if end_time:
             body["end_time"] = end_time
 
-        result = await post("/server/project/topn/company/pr", body)
+        result = await post("/project/topn/company/pr", body)
         if result.get("code") != 1:
             return f"API 错误：{result.get('message', '未知错误')}"
         data = extract_data(result)
@@ -120,7 +120,7 @@ def register(mcp: FastMCP):
         if end_time:
             body["end_time"] = end_time
 
-        result = await post("/server/project/topn/company/pr", body)
+        result = await post("/project/topn/company/pr", body)
         if result.get("code") != 1:
             return f"API 错误：{result.get('message', '未知错误')}"
         data = extract_data(result)
@@ -133,7 +133,7 @@ def register(mcp: FastMCP):
     @mcp.tool()
     async def get_project_topn_user_pr() -> str:
         """获取 PR 贡献个人开发者 Top N 排名。适用于 PPT 展示个人贡献者排行榜。"""
-        result = await post("/server/project/topn/user/pr")
+        result = await post("/project/topn/user/pr")
         if result.get("code") != 1:
             return f"API 错误：{result.get('message', '未知错误')}"
         data = extract_data(result)
