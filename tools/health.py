@@ -64,10 +64,10 @@ def register(mcp: FastMCP):
 
         params = {"mode": "general"}
         if date:
-            # 将用户输入的日期格式（YYYY-MM-DD 或 YYYY-M-D）转换为 API 需要的 YYYYMMDD 格式
+            # 将用户输入的日期格式（YYYY-MM-DD 或 YYYY-M-D）转换为 API 需要的毫秒时间戳
             try:
                 date_obj = datetime.strptime(date.strip(), "%Y-%m-%d")
-                params["date"] = date_obj.strftime("%Y%m%d")
+                params["date"] = int(date_obj.timestamp() * 1000)
             except ValueError:
                 return f"日期格式错误，请使用 YYYY-MM-DD 格式，如 2026-03-05 或 2026-3-5"
 
