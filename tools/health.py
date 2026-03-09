@@ -1,5 +1,6 @@
 from mcp.server.fastmcp import FastMCP
 from lib.http import get
+from datetime import datetime
 
 # 社区名称映射（统一转小写匹配）
 COMMUNITY_MAP = {
@@ -53,7 +54,7 @@ def register(mcp: FastMCP):
 
         Args:
             community: 社区名称，如 openEuler、MindSpore、CANN、openGauss 等，大小写不敏感。
-            date: 查询日期，格式 YYYY-MM-DD（可选），如 2026-03-05。不指定则返回最新数据。
+            date: 查询日期，格式 YYYY-MM-DD（可选），如 2026-03-05 或 2026-3-5。不指定则返回最新数据。
         """
         key = community.strip().lower()
         api_community = COMMUNITY_MAP.get(key)
@@ -63,7 +64,12 @@ def register(mcp: FastMCP):
 
         params = {"mode": "general"}
         if date:
-            params["date"] = date
+            # 将用户输入的日期格式（YYYY-MM-DD 或 YYYY-M-D）转换为 API 需要的 YYYYMMDD 格式
+            try:
+                date_obj = datetime.strptime(date.strip(), "%Y-%m-%d")
+                params["date"] = date_obj.strftime("%Y%m%d")
+            except ValueError:
+                return f"日期格式错误，请使用 YYYY-MM-DD 格式，如 2026-03-05 或 2026-3-5"
 
         result = await get(f"/health/{api_community}/metric", params=params)
 
