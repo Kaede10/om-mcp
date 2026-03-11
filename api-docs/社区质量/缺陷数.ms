@@ -1,15 +1,15 @@
 {
   "properties" : { },
-  "id" : "ce28848368494e49ade20b4ef6c8cae4",
+  "id" : "copy1773132978149d57638",
   "script" : null,
   "groupId" : "2e2220ca1c424052ba4fa20a1e7370f8",
-  "name" : "组织多样性",
+  "name" : "缺陷数",
   "createTime" : null,
-  "updateTime" : 1773129488909,
+  "updateTime" : 1773140795018,
   "lock" : null,
   "createBy" : null,
   "updateBy" : "admin",
-  "path" : "/company",
+  "path" : "/cve",
   "method" : "GET",
   "parameters" : [ {
     "name" : "community",
@@ -25,7 +25,7 @@
     "children" : null
   }, {
     "name" : "start",
-    "value" : "1735689600000",
+    "value" : null,
     "description" : "查询范围开始时间,格式为毫秒时间戳",
     "required" : false,
     "dataType" : "Long",
@@ -37,7 +37,7 @@
     "children" : null
   }, {
     "name" : "end",
-    "value" : "1745689600000",
+    "value" : null,
     "description" : "查询范围结束时间,格式为毫秒时间戳",
     "required" : false,
     "dataType" : "Long",
@@ -47,26 +47,37 @@
     "error" : null,
     "expression" : null,
     "children" : null
-  }, {
-    "name" : "interval",
-    "value" : "month",
-    "description" : "时间维度，如日、月、年",
-    "required" : true,
+  } ],
+  "options" : [ {
+    "name" : "wrap_request_parameter",
+    "value" : "disable-cache",
+    "description" : "包装请求参数到一个变量中",
+    "required" : false,
     "dataType" : "String",
     "type" : null,
     "defaultValue" : null,
-    "validateType" : "pattern",
+    "validateType" : null,
     "error" : null,
-    "expression" : "^(day|month|year)$",
+    "expression" : null,
     "children" : null
   } ],
-  "options" : [ ],
   "requestBody" : "",
   "headers" : [ ],
   "paths" : [ ],
-  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": [{\n        \"month_date\": \"2025-01-01\",\n        \"count\": 49\n    }, {\n        \"month_date\": \"2025-02-01\",\n        \"count\": 49\n    }, {\n        \"month_date\": \"2025-03-01\",\n        \"count\": 48\n    }, {\n        \"month_date\": \"2025-04-01\",\n        \"count\": 46\n    }],\n    \"timestamp\": 1773129036978,\n    \"executeTime\": null\n}",
-  "description" : "查询指定社区的日/月/年度的贡献组织/企业/公司多样性，适合：趋势分析、历史对比、汇总某年/某月数据。",
-  "requestBodyDefinition" : null,
+  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": [{\n        \"count\": 137338\n    }],\n    \"timestamp\": 1773133464221,\n    \"executeTime\": 122\n}",
+  "description" : "统计社区严重缺陷数指标",
+  "requestBodyDefinition" : {
+    "name" : "",
+    "value" : "",
+    "description" : "",
+    "required" : false,
+    "dataType" : "Object",
+    "type" : null,
+    "defaultValue" : null,
+    "validateType" : "",
+    "error" : "",
+    "expression" : ""
+  },
   "responseBodyDefinition" : {
     "name" : "",
     "value" : "",
@@ -81,7 +92,7 @@
     "children" : [ {
       "name" : "code",
       "value" : "1",
-      "description" : "",
+      "description" : "响应码",
       "required" : false,
       "dataType" : "Integer",
       "type" : null,
@@ -93,7 +104,7 @@
     }, {
       "name" : "message",
       "value" : "success",
-      "description" : "",
+      "description" : "响应消息",
       "required" : false,
       "dataType" : "String",
       "type" : null,
@@ -105,7 +116,7 @@
     }, {
       "name" : "data",
       "value" : "",
-      "description" : "",
+      "description" : "响应数据",
       "required" : false,
       "dataType" : "Array",
       "type" : null,
@@ -125,21 +136,9 @@
         "error" : "",
         "expression" : "",
         "children" : [ {
-          "name" : "month_date",
-          "value" : "2025-01-01",
-          "description" : "",
-          "required" : false,
-          "dataType" : "String",
-          "type" : null,
-          "defaultValue" : null,
-          "validateType" : "",
-          "error" : "",
-          "expression" : "",
-          "children" : [ ]
-        }, {
           "name" : "count",
-          "value" : "49",
-          "description" : "",
+          "value" : "137338",
+          "description" : "缺陷数量",
           "required" : false,
           "dataType" : "Integer",
           "type" : null,
@@ -152,8 +151,8 @@
       } ]
     }, {
       "name" : "timestamp",
-      "value" : "1773127708010",
-      "description" : "",
+      "value" : "1773133464221",
+      "description" : "响应时间戳",
       "required" : false,
       "dataType" : "Long",
       "type" : null,
@@ -164,10 +163,10 @@
       "children" : [ ]
     }, {
       "name" : "executeTime",
-      "value" : "null",
+      "value" : "122",
       "description" : "",
       "required" : false,
-      "dataType" : "Object",
+      "dataType" : "Integer",
       "type" : null,
       "defaultValue" : null,
       "validateType" : "",
@@ -179,19 +178,18 @@
 }
 ================================
 community = community.toLowerCase()
+
 var sql = """
-SELECT date_trunc('${interval}', date)::date as month_date, count(distinct company)
-FROM dws_${community}_contribute_company_daily 
-WHERE company <> 'robot' AND company <> '个人贡献者'
+SELECT count(*)
+FROM fact_${community}_issue fk
+<where>
     <if test="start != null and start != ''">
-        AND date >= (to_timestamp(#{start}/1000) AT TIME ZONE 'Asia/Shanghai')::date
+        AND created_at >= (to_timestamp(#{start}/1000) AT TIME ZONE 'Asia/Shanghai')::date
     </if>
     <if test="end != null and end != ''">
-        AND date <= (to_timestamp(#{end}/1000) AT TIME ZONE 'Asia/Shanghai')::date
+        AND created_at <= (to_timestamp(#{end}/1000) AT TIME ZONE 'Asia/Shanghai')::date
     </if>
-GROUP BY date_trunc('${interval}', date)
-ORDER BY date_trunc('${interval}', date) asc;
+</where>     
 """
-
 var resp = db.select(sql)
 return resp
