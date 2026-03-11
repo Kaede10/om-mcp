@@ -44,7 +44,7 @@
     "children" : [ {
       "name" : "start",
       "value" : "1659327200000",
-      "description" : "查询范围开始时间浮点数",
+      "description" : "查询范围开始时间,格式为毫秒时间戳",
       "required" : true,
       "dataType" : "Long",
       "type" : null,

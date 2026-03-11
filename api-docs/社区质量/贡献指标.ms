@@ -38,7 +38,7 @@
   }, {
     "name" : "start",
     "value" : "1735689600000",
-    "description" : "查询范围开始时间浮点数",
+    "description" : "查询范围开始时间,格式为毫秒时间戳",
     "required" : false,
     "dataType" : "Long",
     "type" : null,
@@ -50,7 +50,7 @@
   }, {
     "name" : "end",
     "value" : "1747205600000",
-    "description" : "查询范围结束时间浮点数",
+    "description" : "查询范围结束时间,格式为毫秒时间戳",
     "required" : false,
     "dataType" : "Long",
     "type" : null,
@@ -65,7 +65,7 @@
   "headers" : [ ],
   "paths" : [ ],
   "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": [{\n        \"month_date\": \"2025-01-01\",\n        \"activate_user\": 868,\n        \"prissues\": 5068,\n        \"prs\": 3276,\n        \"merged_prs\": 2516,\n        \"issues\": 2552,\n        \"merged_pr_user\": 340\n    }, {\n        \"month_date\": \"2025-02-01\",\n        \"activate_user\": 923,\n        \"prissues\": 5952,\n        \"prs\": 3984,\n        \"merged_prs\": 3460,\n        \"issues\": 2492,\n        \"merged_pr_user\": 411\n    }, {\n        \"month_date\": \"2025-03-01\",\n        \"activate_user\": 989,\n        \"prissues\": 5364,\n        \"prs\": 5112,\n        \"merged_prs\": 3790,\n        \"issues\": 1574,\n        \"merged_pr_user\": 446\n    }, {\n        \"month_date\": \"2025-04-01\",\n        \"activate_user\": 1020,\n        \"prissues\": 4852,\n        \"prs\": 4150,\n        \"merged_prs\": 3124,\n        \"issues\": 1728,\n        \"merged_pr_user\": 443\n    }, {\n        \"month_date\": \"2025-05-01\",\n        \"activate_user\": 539,\n        \"prissues\": 1819,\n        \"prs\": 1451,\n        \"merged_prs\": 987,\n        \"issues\": 832,\n        \"merged_pr_user\": 211\n    }],\n    \"timestamp\": 1773129191575,\n    \"executeTime\": null\n}",
-  "description" : "查询指定社区的日/月/年度的贡献数据，包含提交的 PR 数、合并的 PR 数、提交的 Issue 数、活跃用户数、合并 PR 用户（也叫留存用户）数。\n返回从建社至今的完整月度数据列表，不支持时间范围过滤。\n适合：趋势分析、历史对比、汇总某年/某月数据。\n注意：不同周期用户有重复，不能将日期维度的用户数直接相加。",
+  "description" : "查询指定社区的日/月/年度的贡献数据，包含提交的 PR 数、合并的 PR 数、提交的 Issue 数、活跃用户数、合并 PR 用户（也叫留存用户）数。\n返回日/月/年度数据列表。\n适合：趋势分析、历史对比、汇总某年/某月数据。\n注意：不同周期用户有重复，不能将日期维度的用户数直接相加。",
   "requestBodyDefinition" : null,
   "responseBodyDefinition" : {
     "name" : "",

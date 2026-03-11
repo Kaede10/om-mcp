@@ -66,7 +66,9 @@ def _parse_ms_file(path: str, group_prefix: str) -> Optional[ToolTemplate]:
     params.extend(_infer_params(data.get("parameters"), "query"))
     request_body = data.get("requestBodyDefinition") or {}
     params.extend(_infer_params(request_body.get("children") or [], "body"))
-    response_config = _detect_response_config(data.get("responseBodyDefinition") or "{}")
+
+    response_body = data.get("responseBodyDefinition") or {}
+    response_config = _detect_response_config(response_body.get("children") or [])
 
     return ToolTemplate(
         name=tool_name,
@@ -121,38 +123,6 @@ def _infer_params(params_list: list, param_type: str) -> List[ParamDef]:
     return params
 
 
-def _detect_response_config(response_body_str: str) -> dict:
-    try:
-        example = json.loads(response_body_str)
-    except (json.JSONDecodeError, TypeError):
-        return {"type": "scalar"}
+def _detect_response_config(response_body: list) -> dict:
+    return {"type": "formatter"}
 
-    data = example.get("data", example)
-
-    if isinstance(data, dict) and "list" in data:
-        items = data.get("list", [])
-        total_key = next((k for k in data if "total" in k.lower() and "page" not in k.lower()), "total_count")
-        item_template = _make_item_template(items[0] if items else {})
-        return {
-            "type": "paginated_list",
-            "list_key": "list",
-            "total_key": total_key,
-            "item_template": item_template,
-        }
-
-    if isinstance(data, list):
-        item_template = _make_item_template(data[0] if data else {})
-        return {"type": "list", "item_template": item_template}
-
-    if isinstance(data, dict):
-        fields = [{"label": k, "key": k} for k in data]
-        return {"type": "scalar", "fields": fields}
-
-    return {"type": "scalar"}
-
-
-def _make_item_template(item: dict) -> str:
-    if not isinstance(item, dict):
-        return "  {index}. {item}"
-    parts = [f"{k}={{{k}}}" for k in item]
-    return "  {index}. " + ", ".join(parts)
