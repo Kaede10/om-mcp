@@ -1,19 +1,19 @@
 {
   "properties" : { },
-  "id" : "9b09b73ae6054882807e7058e0b14a90",
+  "id" : "ce28848368494e49ade20b4ef6c8cae4",
   "script" : null,
   "groupId" : "2e2220ca1c424052ba4fa20a1e7370f8",
-  "name" : "搜索指数",
+  "name" : "组织多样性",
   "createTime" : null,
-  "updateTime" : 1773129462868,
+  "updateTime" : 1773219619796,
   "lock" : null,
   "createBy" : null,
   "updateBy" : "admin",
-  "path" : "/influence",
+  "path" : "/company",
   "method" : "GET",
   "parameters" : [ {
     "name" : "community",
-    "value" : "openeuler",
+    "value" : "mindie",
     "description" : "社区名称",
     "required" : true,
     "dataType" : "String",
@@ -25,7 +25,7 @@
     "children" : null
   }, {
     "name" : "start",
-    "value" : "1735689600000",
+    "value" : "1765689600000",
     "description" : "查询范围开始时间,格式为毫秒时间戳",
     "required" : false,
     "dataType" : "Long",
@@ -37,7 +37,7 @@
     "children" : null
   }, {
     "name" : "end",
-    "value" : "1745689600000",
+    "value" : "1795689600000",
     "description" : "查询范围结束时间,格式为毫秒时间戳",
     "required" : false,
     "dataType" : "Long",
@@ -49,7 +49,7 @@
     "children" : null
   }, {
     "name" : "interval",
-    "value" : "year",
+    "value" : "month",
     "description" : "时间维度，如日、月、年",
     "required" : true,
     "dataType" : "String",
@@ -60,12 +60,24 @@
     "expression" : "^(day|month|year)$",
     "children" : null
   } ],
-  "options" : [ ],
+  "options" : [ {
+    "name" : "wrap_request_parameter",
+    "value" : "disable-cache",
+    "description" : "包装请求参数到一个变量中",
+    "required" : false,
+    "dataType" : "String",
+    "type" : null,
+    "defaultValue" : null,
+    "validateType" : null,
+    "error" : null,
+    "expression" : null,
+    "children" : null
+  } ],
   "requestBody" : "",
   "headers" : [ ],
   "paths" : [ ],
-  "responseBody" : "{\n    \"code\": -1,\n    \"message\": \"系统内部出现错误\",\n    \"data\": null,\n    \"timestamp\": 1773129439469,\n    \"executeTime\": 1\n}",
-  "description" : "查询指定社区的日/月/年度的搜索指数，适合：趋势分析、历史对比、汇总某年/某月数据。",
+  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": [{\n        \"month_date\": \"2025-12-01\",\n        \"count\": 7\n    }, {\n        \"month_date\": \"2026-01-01\",\n        \"count\": 7\n    }, {\n        \"month_date\": \"2026-02-01\",\n        \"count\": 8\n    }, {\n        \"month_date\": \"2026-03-01\",\n        \"count\": 6\n    }],\n    \"timestamp\": 1773219608821,\n    \"executeTime\": 14\n}",
+  "description" : "查询指定社区的日/月/年度的贡献组织/企业/公司多样性，适合：趋势分析、历史对比、汇总某年/某月数据。",
   "requestBodyDefinition" : null,
   "responseBodyDefinition" : {
     "name" : "",
@@ -137,8 +149,8 @@
           "expression" : "",
           "children" : [ ]
         }, {
-          "name" : "sum_of_daily_averages",
-          "value" : "106050",
+          "name" : "count",
+          "value" : "49",
           "description" : "",
           "required" : false,
           "dataType" : "Integer",
@@ -152,7 +164,7 @@
       } ]
     }, {
       "name" : "timestamp",
-      "value" : "1773127101045",
+      "value" : "1773219066112",
       "description" : "",
       "required" : false,
       "dataType" : "Long",
@@ -164,7 +176,7 @@
       "children" : [ ]
     }, {
       "name" : "executeTime",
-      "value" : "5",
+      "value" : "85",
       "description" : "",
       "required" : false,
       "dataType" : "Integer",
@@ -180,26 +192,17 @@
 ================================
 community = community.toLowerCase()
 var sql = """
-WITH daily_avg AS (
-    SELECT
-        created_at AS day,
-        AVG(count)::int4 AS avg_per_day
-    FROM fact_community_baidu_index
-    WHERE community = #{community}
-        <if test="start != null and start != ''">
-            AND created_at >= (to_timestamp(#{start}/1000) AT TIME ZONE 'Asia/Shanghai')::date
-        </if>
-        <if test="end != null and end != ''">
-            AND created_at <= (to_timestamp(#{end}/1000) AT TIME ZONE 'Asia/Shanghai')::date
-        </if>
-    GROUP BY created_at
-)
-SELECT
-    date_trunc('${interval}', day)::date AS month_date,
-    SUM(avg_per_day) AS sum_of_daily_averages
-FROM daily_avg
-GROUP BY date_trunc('${interval}', day)
-ORDER BY date_trunc('${interval}', day) asc;
+SELECT date_trunc('${interval}', date)::date as month_date, count(distinct company)
+FROM dws_${community}_contribute_company_daily 
+WHERE company <> 'robot' AND company <> '个人贡献者'
+    <if test="start != null and start != ''">
+        AND date >= (to_timestamp(#{start}/1000) AT TIME ZONE 'Asia/Shanghai')::date
+    </if>
+    <if test="end != null and end != ''">
+        AND date <= (to_timestamp(#{end}/1000) AT TIME ZONE 'Asia/Shanghai')::date
+    </if>
+GROUP BY date_trunc('${interval}', date)
+ORDER BY date_trunc('${interval}', date) asc;
 """
 
 var resp = db.select(sql)

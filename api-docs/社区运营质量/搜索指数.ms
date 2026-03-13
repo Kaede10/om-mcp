@@ -1,15 +1,15 @@
 {
   "properties" : { },
-  "id" : "copy1773127835647d66022",
+  "id" : "9b09b73ae6054882807e7058e0b14a90",
   "script" : null,
   "groupId" : "2e2220ca1c424052ba4fa20a1e7370f8",
-  "name" : "项目集成引用度",
+  "name" : "搜索指数",
   "createTime" : null,
-  "updateTime" : 1773128667408,
+  "updateTime" : 1773365339143,
   "lock" : null,
   "createBy" : null,
   "updateBy" : "admin",
-  "path" : "/swf",
+  "path" : "/influence",
   "method" : "GET",
   "parameters" : [ {
     "name" : "community",
@@ -25,7 +25,7 @@
     "children" : null
   }, {
     "name" : "start",
-    "value" : "1735689600000",
+    "value" : "1765689600000",
     "description" : "查询范围开始时间,格式为毫秒时间戳",
     "required" : false,
     "dataType" : "Long",
@@ -37,7 +37,7 @@
     "children" : null
   }, {
     "name" : "end",
-    "value" : "1745689600000",
+    "value" : "1795689600000",
     "description" : "查询范围结束时间,格式为毫秒时间戳",
     "required" : false,
     "dataType" : "Long",
@@ -59,25 +59,25 @@
     "error" : null,
     "expression" : "^(day|month|year)$",
     "children" : null
-  }, {
-    "name" : "metric",
-    "value" : "watch",
-    "description" : "指标名称，如star、fork、watch",
-    "required" : true,
+  } ],
+  "options" : [ {
+    "name" : "wrap_request_parameter",
+    "value" : "disable-cache",
+    "description" : "包装请求参数到一个变量中",
+    "required" : false,
     "dataType" : "String",
     "type" : null,
     "defaultValue" : null,
-    "validateType" : "pattern",
+    "validateType" : null,
     "error" : null,
-    "expression" : "^(fork|star|watch)$",
+    "expression" : null,
     "children" : null
   } ],
-  "options" : [ ],
   "requestBody" : "",
   "headers" : [ ],
   "paths" : [ ],
-  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": [{\n        \"month_date\": \"2025-01-01\",\n        \"count\": 305\n    }, {\n        \"month_date\": \"2025-02-01\",\n        \"count\": 1151\n    }, {\n        \"month_date\": \"2025-03-01\",\n        \"count\": 1548\n    }, {\n        \"month_date\": \"2025-04-01\",\n        \"count\": 1070\n    }],\n    \"timestamp\": 1773128439297,\n    \"executeTime\": 130\n}",
-  "description" : "查询指定社区的日/月/年度的项目集成引用度，包含star、watch、fork指标。适合：趋势分析、历史对比、汇总某年/某月数据。",
+  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": [{\n        \"stats_date\": \"2025-12-01 08:00:00\",\n        \"avg_index\": 133\n    }, {\n        \"stats_date\": \"2026-01-01 08:00:00\",\n        \"avg_index\": 132\n    }, {\n        \"stats_date\": \"2026-02-01 08:00:00\",\n        \"avg_index\": 94\n    }, {\n        \"stats_date\": \"2026-03-01 08:00:00\",\n        \"avg_index\": 147\n    }],\n    \"timestamp\": 1773220130037,\n    \"executeTime\": 4\n}",
+  "description" : "查询指定社区的日/月/年度的主流平台搜索指数，适合：趋势分析、历史对比、汇总某年/某月数据。",
   "requestBodyDefinition" : null,
   "responseBodyDefinition" : {
     "name" : "",
@@ -149,8 +149,8 @@
           "expression" : "",
           "children" : [ ]
         }, {
-          "name" : "count",
-          "value" : "305",
+          "name" : "sum_of_daily_averages",
+          "value" : "106050",
           "description" : "",
           "required" : false,
           "dataType" : "Integer",
@@ -164,7 +164,7 @@
       } ]
     }, {
       "name" : "timestamp",
-      "value" : "1773128439297",
+      "value" : "1773127101045",
       "description" : "",
       "required" : false,
       "dataType" : "Long",
@@ -176,7 +176,7 @@
       "children" : [ ]
     }, {
       "name" : "executeTime",
-      "value" : "130",
+      "value" : "5",
       "description" : "",
       "required" : false,
       "dataType" : "Integer",
@@ -191,14 +191,12 @@
 }
 ================================
 community = community.toLowerCase()
-var fork_community = community == 'cannopen' ? 'cann' : community
-
 var sql = """
-SELECT date_trunc('${interval}', created_at)::date as month_date, count(*)
-FROM fact_${fork_community}_${metric} fk
-WHERE EXISTS (
-        SELECT 1 FROM fact_${community}_repo fr WHERE fr.repo_path = fk.repo_path AND fr.is_removed is null AND fr.is_hide is null
-    ) 
+SELECT
+    date_trunc('${interval}', created_at) AS stats_date,
+    AVG(count)::int4 AS avg_index
+FROM fact_community_baidu_index
+WHERE community = #{community}
     <if test="start != null and start != ''">
         AND created_at >= (to_timestamp(#{start}/1000) AT TIME ZONE 'Asia/Shanghai')::date
     </if>

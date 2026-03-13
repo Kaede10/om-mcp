@@ -20,29 +20,28 @@ def load_apidocs_templates() -> List[ToolTemplate]:
         if not os.path.isdir(group_path):
             continue
 
-        group_prefix = _load_group_prefix(group_path)
+        group_info = _load_group_info(group_path)
 
         for filename in sorted(os.listdir(group_path)):
             if not filename.endswith(".ms"):
                 continue
             ms_path = os.path.join(group_path, filename)
-            template = _parse_ms_file(ms_path, group_prefix)
+            template = _parse_ms_file(ms_path, group_info)
             if template:
                 templates.append(template)
 
     return templates
 
-
-def _load_group_prefix(group_dir: str) -> str:
+def _load_group_info(group_dir: str) -> str:
     group_json = os.path.join(group_dir, "group.json")
     if not os.path.exists(group_json):
-        return ""
+        return {}
     with open(group_json, encoding="utf-8") as f:
         data = json.load(f)
-    return data.get("path", "").rstrip("/")
+        return data
 
 
-def _parse_ms_file(path: str, group_prefix: str) -> Optional[ToolTemplate]:
+def _parse_ms_file(path: str, group_info: dict) -> Optional[ToolTemplate]:
     with open(path, encoding="utf-8") as f:
         content = f.read()
 
@@ -56,10 +55,13 @@ def _parse_ms_file(path: str, group_prefix: str) -> Optional[ToolTemplate]:
     if not ms_path:
         return None
 
+    group_prefix = group_info.get("path", "").rstrip("/")
     full_path = group_prefix + "/" + ms_path.lstrip("/")
     http_method = data.get("method", "POST").lower()
     name = data.get("name", ms_path)
     description = data.get("description") or name
+    if group_info.get("name"):
+        description = group_info.get("name") + ": " + description
 
     tool_name = _path_to_tool_name(full_path)
     params = []

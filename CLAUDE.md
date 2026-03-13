@@ -164,6 +164,41 @@ A: 使用 `extract_data()` 函数，它会自动处理单层和双层嵌套的 d
 ### Q: 如何处理可选参数？
 A: 使用默认值 `""`，在函数内部用 `if param:` 判断是否传入。
 
+## 开源社区质量运营总览指标
+
+用于对开源社区质量进行月度趋势分析，共 13 个指标及对应查询方式：
+
+| # | 指标 | MCP 工具 | 关键字段 |
+|---|------|---------|---------|
+| 1 | 当期活跃开发者数 | `get_stats_contribute(interval=month)` | `activate_user` |
+| 2 | 合入PR个数、提交Issue个数 | `get_stats_contribute(interval=month)` | `merged_prs`, `issues` |
+| 3 | 有效Review数 | `get_stats_valid_comment(interval=month)` | `comments` |
+| 4 | 领域主流项目适配、集成、引用度 | `get_stats_itegration()` | `count` |
+| 5 | TOP开发者留存情况 | `get_stats_user_retention(interval=month)` | `user_count` |
+| 6 | YTD社区下载量 | `get_stats_year_download()` | `download` |
+| 7 | Issue平均首次响应时间（天） | `get_issues_aggregate()` / | `avg_first_response` |
+| 8 | Issue平均闭环时间（天） | `get_issues_aggregate()` | `avg_close_time` |
+| 9 | 论坛平均首次响应时间（天） | `get_stats_forum()` | `avg_first_reply_time` |
+| 10 | 论坛平均闭环时间（天） | `get_stats_forum()` | `avg_closed_time` |
+| 11 | 版本稳定发布偏差 | `get_stats_health_metric(metric=version_release)` | `avg` |
+| 12 | 社区组织多样性 | `get_stats_company(interval=month)` | `count` |
+| 13 | 主流平台搜索指数 | `get_stats_influence(interval=month)` | `avg_index` |
+
+**月度趋势分析时间规则：**
+- 统计周期为**上一个自然月**（例如3月查询时，统计范围为2月1日～2月末）
+- **下载量例外**：使用年初至上月末的累计数据（`get_stats_year_download`），需同时展示：
+  - 当月下载量（本月YTD - 上月YTD）
+  - 年初至当月累计总量（YTD）
+  - 月度环比（当月下载量 vs 上月下载量）
+  - 年累计环比（当月YTD vs 上月YTD）
+- 指标 11（版本发布偏差）为 0.0 表示该周期内版本**按时发布**
+- 指标 4/9/10 仅返回汇总值，无月度拆分
+
+**月度报告输出规则：**
+- 报告保存至 `reports/` 目录
+- 文件命名格式：`{community}_community_quality_monthly_{YYYYMM}.md`
+- 示例：`openeuler_community_quality_monthly_202603.md`
+
 ## 参考资料
 
 - [FastMCP 文档](https://github.com/jlowin/fastmcp)
