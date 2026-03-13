@@ -1,20 +1,32 @@
 {
   "properties" : { },
-  "id" : "ed53f8807e6b4c6ba8a135fb16a7b790",
+  "id" : "9baad7c69b5248588d6e23e74485a1ad",
   "script" : null,
   "groupId" : "2e2220ca1c424052ba4fa20a1e7370f8",
-  "name" : "论坛指标",
+  "name" : "TOPN用户留存人数",
   "createTime" : null,
-  "updateTime" : 1773140809302,
+  "updateTime" : 1773367242261,
   "lock" : null,
   "createBy" : null,
   "updateBy" : "admin",
-  "path" : "/forum",
+  "path" : "/user_retention",
   "method" : "GET",
   "parameters" : [ {
     "name" : "community",
-    "value" : "openeuler",
-    "description" : "社区名称",
+    "value" : "mindie",
+    "description" : null,
+    "required" : true,
+    "dataType" : "String",
+    "type" : null,
+    "defaultValue" : null,
+    "validateType" : null,
+    "error" : null,
+    "expression" : null,
+    "children" : null
+  }, {
+    "name" : "interval",
+    "value" : "month",
+    "description" : null,
     "required" : true,
     "dataType" : "String",
     "type" : null,
@@ -25,7 +37,7 @@
     "children" : null
   }, {
     "name" : "start",
-    "value" : null,
+    "value" : "1765689600000",
     "description" : "查询范围开始时间,格式为毫秒时间戳",
     "required" : false,
     "dataType" : "Long",
@@ -48,12 +60,24 @@
     "expression" : null,
     "children" : null
   } ],
-  "options" : [ ],
+  "options" : [ {
+    "name" : "wrap_request_parameter",
+    "value" : "disable-cache",
+    "description" : "包装请求参数到一个变量中",
+    "required" : false,
+    "dataType" : "String",
+    "type" : null,
+    "defaultValue" : null,
+    "validateType" : null,
+    "error" : null,
+    "expression" : null,
+    "children" : null
+  } ],
   "requestBody" : "",
   "headers" : [ ],
   "paths" : [ ],
-  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": [{\n        \"count\": 2595,\n        \"avg_first_reply_time\": 21.23,\n        \"avg_closed_time\": 21.23\n    }],\n    \"timestamp\": 1773134517117,\n    \"executeTime\": 15\n}",
-  "description" : "统计社区论坛汇总指标（平均首次响应时间、平均闭环时间）",
+  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": [{\n        \"stats_date\": \"2026-01-01\",\n        \"user_count\": 40\n    }, {\n        \"stats_date\": \"2026-02-01\",\n        \"user_count\": 30\n    }, {\n        \"stats_date\": \"2026-03-01\",\n        \"user_count\": 16\n    }],\n    \"timestamp\": 1773218889167,\n    \"executeTime\": 173\n}",
+  "description" : "查询指定社区的日/月/年度的开发者留存情况，适合：趋势分析、历史对比、汇总年度/月度数据。",
   "requestBodyDefinition" : null,
   "responseBodyDefinition" : {
     "name" : "",
@@ -69,7 +93,7 @@
     "children" : [ {
       "name" : "code",
       "value" : "1",
-      "description" : "响应码",
+      "description" : "",
       "required" : false,
       "dataType" : "Integer",
       "type" : null,
@@ -81,7 +105,7 @@
     }, {
       "name" : "message",
       "value" : "success",
-      "description" : "响应消息",
+      "description" : "",
       "required" : false,
       "dataType" : "String",
       "type" : null,
@@ -93,7 +117,7 @@
     }, {
       "name" : "data",
       "value" : "",
-      "description" : "响应数据",
+      "description" : "",
       "required" : false,
       "dataType" : "Array",
       "type" : null,
@@ -113,35 +137,23 @@
         "error" : "",
         "expression" : "",
         "children" : [ {
-          "name" : "count",
-          "value" : "2595",
-          "description" : "论坛帖子总数",
+          "name" : "stats_date",
+          "value" : "2026-01-01",
+          "description" : "",
+          "required" : false,
+          "dataType" : "String",
+          "type" : null,
+          "defaultValue" : null,
+          "validateType" : "",
+          "error" : "",
+          "expression" : "",
+          "children" : [ ]
+        }, {
+          "name" : "user_count",
+          "value" : "191",
+          "description" : "",
           "required" : false,
           "dataType" : "Integer",
-          "type" : null,
-          "defaultValue" : null,
-          "validateType" : "",
-          "error" : "",
-          "expression" : "",
-          "children" : [ ]
-        }, {
-          "name" : "avg_first_reply_time",
-          "value" : "21.23",
-          "description" : "论坛帖子平均首次响应时间",
-          "required" : false,
-          "dataType" : "Double",
-          "type" : null,
-          "defaultValue" : null,
-          "validateType" : "",
-          "error" : "",
-          "expression" : "",
-          "children" : [ ]
-        }, {
-          "name" : "avg_closed_time",
-          "value" : "21.23",
-          "description" : "论坛帖子平均闭环时间",
-          "required" : false,
-          "dataType" : "Double",
           "type" : null,
           "defaultValue" : null,
           "validateType" : "",
@@ -152,7 +164,7 @@
       } ]
     }, {
       "name" : "timestamp",
-      "value" : "1773134517117",
+      "value" : "1773218851280",
       "description" : "",
       "required" : false,
       "dataType" : "Long",
@@ -164,7 +176,7 @@
       "children" : [ ]
     }, {
       "name" : "executeTime",
-      "value" : "15",
+      "value" : "33",
       "description" : "",
       "required" : false,
       "dataType" : "Integer",
@@ -179,21 +191,29 @@
 }
 ================================
 community = community.toLowerCase()
-
 var sql = """
-SELECT
-        count(*) as count, 
-        ROUND((AVG(COALESCE(response_time, 0)) / 86400.0)::NUMERIC, 2) AS avg_first_reply_time,
-        ROUND((AVG(COALESCE(response_time, 0)) / 86400.0)::NUMERIC, 2) AS avg_closed_time
-FROM fact_${community}_forum_topic
-<where>
-    <if test="start != null and start != ''">
-        AND created_at >= (to_timestamp(#{start}/1000) AT TIME ZONE 'Asia/Shanghai')::date
-    </if>
-    <if test="end != null and end != ''">
-        AND created_at <= (to_timestamp(#{end}/1000) AT TIME ZONE 'Asia/Shanghai')::date
-    </if>
-</where>     
+SELECT 
+    stats_date,
+    COUNT(DISTINCT user_login) AS user_count
+FROM (
+    SELECT 
+        DATE_TRUNC('${interval}', date)::DATE AS stats_date,
+        user_login,
+        SUM(merged_pr_incre * 5 + issue_incre * 3 + comment_incre * 1) AS score
+    FROM dws_${community}_contribute_repo_user_daily
+    WHERE 1 = 1
+        <if test="start != null and start != ''">
+            AND date >= (to_timestamp(#{start}/1000) AT TIME ZONE 'Asia/Shanghai')::date
+        </if>
+        <if test="end != null and end != ''">
+            AND date <= (to_timestamp(#{end}/1000) AT TIME ZONE 'Asia/Shanghai')::date
+        </if>
+    GROUP BY DATE_TRUNC('${interval}', date)::DATE, user_login
+) t
+WHERE score >= 50
+GROUP BY stats_date
+ORDER BY stats_date;
 """
+
 var resp = db.select(sql)
 return resp

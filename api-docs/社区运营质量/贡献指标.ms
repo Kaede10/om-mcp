@@ -1,15 +1,15 @@
 {
   "properties" : { },
-  "id" : "42742ef13cab4b90889c27fa6eb40ff3",
+  "id" : "dff537f2baaa4c6eab941cd0c19239bf",
   "script" : null,
   "groupId" : "2e2220ca1c424052ba4fa20a1e7370f8",
-  "name" : "有效评论数",
+  "name" : "贡献指标",
   "createTime" : null,
-  "updateTime" : 1773129498355,
+  "updateTime" : 1773365167908,
   "lock" : null,
   "createBy" : null,
   "updateBy" : "admin",
-  "path" : "/valid_comment",
+  "path" : "/contribute",
   "method" : "GET",
   "parameters" : [ {
     "name" : "community",
@@ -37,7 +37,7 @@
     "children" : null
   }, {
     "name" : "start",
-    "value" : "1735689600000",
+    "value" : "1765689600000",
     "description" : "查询范围开始时间,格式为毫秒时间戳",
     "required" : false,
     "dataType" : "Long",
@@ -49,7 +49,7 @@
     "children" : null
   }, {
     "name" : "end",
-    "value" : "1745689600000",
+    "value" : "1797205600000",
     "description" : "查询范围结束时间,格式为毫秒时间戳",
     "required" : false,
     "dataType" : "Long",
@@ -59,25 +59,13 @@
     "error" : null,
     "expression" : null,
     "children" : null
-  }, {
-    "name" : "contrib_type",
-    "value" : "pr",
-    "description" : "issue评论还是pr评论",
-    "required" : false,
-    "dataType" : "String",
-    "type" : null,
-    "defaultValue" : null,
-    "validateType" : "pattern",
-    "error" : null,
-    "expression" : "^(pr|issue)$",
-    "children" : null
   } ],
   "options" : [ ],
   "requestBody" : "",
   "headers" : [ ],
   "paths" : [ ],
-  "responseBody" : "{\n    \"code\": -1,\n    \"message\": \"系统内部出现错误\",\n    \"data\": null,\n    \"timestamp\": 1773129027203,\n    \"executeTime\": 2\n}",
-  "description" : "查询指定社区的日/月/年度的有效评论/review数量，排除机器人发出的评论和命令型评论，适合：趋势分析、历史对比、汇总某年/某月数据。",
+  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": [{\n        \"month_date\": \"2025-12-01\",\n        \"activate_user\": 125,\n        \"prs\": 374,\n        \"merged_prs\": 319,\n        \"issues\": 173,\n        \"merged_pr_user\": 61\n    }, {\n        \"month_date\": \"2026-01-01\",\n        \"activate_user\": 397,\n        \"prs\": 489,\n        \"merged_prs\": 385,\n        \"issues\": 298,\n        \"merged_pr_user\": 68\n    }, {\n        \"month_date\": \"2026-02-01\",\n        \"activate_user\": 105,\n        \"prs\": 322,\n        \"merged_prs\": 283,\n        \"issues\": 196,\n        \"merged_pr_user\": 62\n    }, {\n        \"month_date\": \"2026-03-01\",\n        \"activate_user\": 95,\n        \"prs\": 185,\n        \"merged_prs\": 148,\n        \"issues\": 165,\n        \"merged_pr_user\": 44\n    }],\n    \"timestamp\": 1773219233763,\n    \"executeTime\": null\n}",
+  "description" : "查询指定社区的日/月/年度的贡献数据，包含提交的 PR 数、合并的 PR 数、提交的 Issue 数、活跃用户数、合并 PR 用户数。\n返回完整日/月/年度数据列表。\n适合：趋势分析、历史对比、汇总某年/某月数据。\n注意：不同周期用户有重复，不能将日期维度的用户数直接相加。",
   "requestBodyDefinition" : null,
   "responseBodyDefinition" : {
     "name" : "",
@@ -149,9 +137,57 @@
           "expression" : "",
           "children" : [ ]
         }, {
-          "name" : "comments",
-          "value" : "7406",
-          "description" : "",
+          "name" : "activate_user",
+          "value" : "868",
+          "description" : "当期活跃开发者人数",
+          "required" : false,
+          "dataType" : "Integer",
+          "type" : null,
+          "defaultValue" : null,
+          "validateType" : "",
+          "error" : "",
+          "expression" : "",
+          "children" : [ ]
+        }, {
+          "name" : "prs",
+          "value" : "3276",
+          "description" : "提交的pr总数",
+          "required" : false,
+          "dataType" : "Integer",
+          "type" : null,
+          "defaultValue" : null,
+          "validateType" : "",
+          "error" : "",
+          "expression" : "",
+          "children" : [ ]
+        }, {
+          "name" : "merged_prs",
+          "value" : "2516",
+          "description" : "合并的pr总数",
+          "required" : false,
+          "dataType" : "Integer",
+          "type" : null,
+          "defaultValue" : null,
+          "validateType" : "",
+          "error" : "",
+          "expression" : "",
+          "children" : [ ]
+        }, {
+          "name" : "issues",
+          "value" : "2552",
+          "description" : "提交的issue总数",
+          "required" : false,
+          "dataType" : "Integer",
+          "type" : null,
+          "defaultValue" : null,
+          "validateType" : "",
+          "error" : "",
+          "expression" : "",
+          "children" : [ ]
+        }, {
+          "name" : "merged_pr_user",
+          "value" : "340",
+          "description" : "当期合并的pr用户",
           "required" : false,
           "dataType" : "Integer",
           "type" : null,
@@ -164,7 +200,7 @@
       } ]
     }, {
       "name" : "timestamp",
-      "value" : "1773128718749",
+      "value" : "1773143455111",
       "description" : "",
       "required" : false,
       "dataType" : "Long",
@@ -176,7 +212,7 @@
       "children" : [ ]
     }, {
       "name" : "executeTime",
-      "value" : "634",
+      "value" : "102",
       "description" : "",
       "required" : false,
       "dataType" : "Integer",
@@ -191,23 +227,23 @@
 }
 ================================
 community = community.toLowerCase()
-
 var sql = """
-SELECT date_trunc('${interval}', created_at)::date as month_date, 
-    COALESCE(SUM(valid_comment_num), 0) AS comments 
-FROM dws_${community}_prissue_comment dopc 
-WHERE is_removed is null
+SELECT date_trunc('${interval}', date)::date as month_date, 
+       count(distinct user_login) as activate_user, 
+       sum(pr_incre) as prs,
+       sum(merged_pr_incre) as merged_prs, 
+       sum(issue_incre) as issues, 
+       count(distinct user_login) filter (where merged_pr_incre > 0) as merged_pr_user
+FROM dws_${community}_contribute_repo_user_daily
+WHERE 1 = 1
     <if test="start != null and start != ''">
-        AND created_at >= (to_timestamp(#{start}/1000) AT TIME ZONE 'Asia/Shanghai')::date
+        AND date >= (to_timestamp(#{start}/1000) AT TIME ZONE 'Asia/Shanghai')::date
     </if>
     <if test="end != null and end != ''">
-        AND created_at <= (to_timestamp(#{end}/1000) AT TIME ZONE 'Asia/Shanghai')::date
+        AND date <= (to_timestamp(#{end}/1000) AT TIME ZONE 'Asia/Shanghai')::date
     </if>
-    <if test="contrib_type != null and contrib_type != ''">
-        AND contrib_type = #{contrib_type}
-    </if>
-GROUP BY date_trunc('${interval}', created_at)
-ORDER BY date_trunc('${interval}', created_at) asc;
+GROUP BY date_trunc('${interval}', date)
+ORDER BY date_trunc('${interval}', date) asc;
 """
 
 var resp = db.select(sql)

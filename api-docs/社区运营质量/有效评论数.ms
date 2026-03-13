@@ -1,46 +1,22 @@
 {
   "properties" : { },
-  "id" : "ce28848368494e49ade20b4ef6c8cae4",
+  "id" : "42742ef13cab4b90889c27fa6eb40ff3",
   "script" : null,
   "groupId" : "2e2220ca1c424052ba4fa20a1e7370f8",
-  "name" : "组织多样性",
+  "name" : "有效评论数",
   "createTime" : null,
-  "updateTime" : 1773129488909,
+  "updateTime" : 1773300001407,
   "lock" : null,
   "createBy" : null,
   "updateBy" : "admin",
-  "path" : "/company",
+  "path" : "/valid_comment",
   "method" : "GET",
   "parameters" : [ {
     "name" : "community",
-    "value" : "openeuler",
+    "value" : "mindie",
     "description" : "社区名称",
     "required" : true,
     "dataType" : "String",
-    "type" : null,
-    "defaultValue" : null,
-    "validateType" : null,
-    "error" : null,
-    "expression" : null,
-    "children" : null
-  }, {
-    "name" : "start",
-    "value" : "1735689600000",
-    "description" : "查询范围开始时间,格式为毫秒时间戳",
-    "required" : false,
-    "dataType" : "Long",
-    "type" : null,
-    "defaultValue" : null,
-    "validateType" : null,
-    "error" : null,
-    "expression" : null,
-    "children" : null
-  }, {
-    "name" : "end",
-    "value" : "1745689600000",
-    "description" : "查询范围结束时间,格式为毫秒时间戳",
-    "required" : false,
-    "dataType" : "Long",
     "type" : null,
     "defaultValue" : null,
     "validateType" : null,
@@ -59,13 +35,49 @@
     "error" : null,
     "expression" : "^(day|month|year)$",
     "children" : null
+  }, {
+    "name" : "start",
+    "value" : "1755689600000",
+    "description" : "查询范围开始时间,格式为毫秒时间戳",
+    "required" : false,
+    "dataType" : "Long",
+    "type" : null,
+    "defaultValue" : null,
+    "validateType" : null,
+    "error" : null,
+    "expression" : null,
+    "children" : null
+  }, {
+    "name" : "end",
+    "value" : "1795689600000",
+    "description" : "查询范围结束时间,格式为毫秒时间戳",
+    "required" : false,
+    "dataType" : "Long",
+    "type" : null,
+    "defaultValue" : null,
+    "validateType" : null,
+    "error" : null,
+    "expression" : null,
+    "children" : null
+  }, {
+    "name" : "contrib_type",
+    "value" : "",
+    "description" : "issue评论还是pr评论",
+    "required" : false,
+    "dataType" : "String",
+    "type" : null,
+    "defaultValue" : null,
+    "validateType" : "pattern",
+    "error" : null,
+    "expression" : "^(pr|issue)$",
+    "children" : null
   } ],
   "options" : [ ],
   "requestBody" : "",
   "headers" : [ ],
   "paths" : [ ],
-  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": [{\n        \"month_date\": \"2025-01-01\",\n        \"count\": 49\n    }, {\n        \"month_date\": \"2025-02-01\",\n        \"count\": 49\n    }, {\n        \"month_date\": \"2025-03-01\",\n        \"count\": 48\n    }, {\n        \"month_date\": \"2025-04-01\",\n        \"count\": 46\n    }],\n    \"timestamp\": 1773129036978,\n    \"executeTime\": null\n}",
-  "description" : "查询指定社区的日/月/年度的贡献组织/企业/公司多样性，适合：趋势分析、历史对比、汇总某年/某月数据。",
+  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": [{\n        \"month_date\": \"2025-12-01\",\n        \"comments\": 1797\n    }, {\n        \"month_date\": \"2026-01-01\",\n        \"comments\": 2563\n    }, {\n        \"month_date\": \"2026-02-01\",\n        \"comments\": 844\n    }, {\n        \"month_date\": \"2026-03-01\",\n        \"comments\": 722\n    }],\n    \"timestamp\": 1773299991578,\n    \"executeTime\": null\n}",
+  "description" : "查询指定社区的日/月/年度的有效评论/review数量，排除机器人发出的评论和命令型评论，适合：趋势分析、历史对比、汇总某年/某月数据。",
   "requestBodyDefinition" : null,
   "responseBodyDefinition" : {
     "name" : "",
@@ -137,8 +149,8 @@
           "expression" : "",
           "children" : [ ]
         }, {
-          "name" : "count",
-          "value" : "49",
+          "name" : "comments",
+          "value" : "7406",
           "description" : "",
           "required" : false,
           "dataType" : "Integer",
@@ -152,7 +164,7 @@
       } ]
     }, {
       "name" : "timestamp",
-      "value" : "1773127708010",
+      "value" : "1773128718749",
       "description" : "",
       "required" : false,
       "dataType" : "Long",
@@ -164,10 +176,10 @@
       "children" : [ ]
     }, {
       "name" : "executeTime",
-      "value" : "null",
+      "value" : "634",
       "description" : "",
       "required" : false,
-      "dataType" : "Object",
+      "dataType" : "Integer",
       "type" : null,
       "defaultValue" : null,
       "validateType" : "",
@@ -179,18 +191,23 @@
 }
 ================================
 community = community.toLowerCase()
+
 var sql = """
-SELECT date_trunc('${interval}', date)::date as month_date, count(distinct company)
-FROM dws_${community}_contribute_company_daily 
-WHERE company <> 'robot' AND company <> '个人贡献者'
+SELECT date_trunc('${interval}', created_at)::date as stats_date, 
+    COUNT(*) AS comments
+FROM dwm_${community}_user_interaction 
+WHERE company <> 'robot'
     <if test="start != null and start != ''">
-        AND date >= (to_timestamp(#{start}/1000) AT TIME ZONE 'Asia/Shanghai')::date
+        AND created_at >= (to_timestamp(#{start}/1000) AT TIME ZONE 'Asia/Shanghai')::date
     </if>
     <if test="end != null and end != ''">
-        AND date <= (to_timestamp(#{end}/1000) AT TIME ZONE 'Asia/Shanghai')::date
+        AND created_at <= (to_timestamp(#{end}/1000) AT TIME ZONE 'Asia/Shanghai')::date
     </if>
-GROUP BY date_trunc('${interval}', date)
-ORDER BY date_trunc('${interval}', date) asc;
+    <if test="contrib_type != null and contrib_type != ''">
+        AND contrib_type = #{contrib_type}
+    </if>
+GROUP BY date_trunc('${interval}', created_at)
+ORDER BY date_trunc('${interval}', created_at) asc;
 """
 
 var resp = db.select(sql)
