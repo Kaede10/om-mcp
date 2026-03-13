@@ -5,7 +5,7 @@
   "groupId" : "2e2220ca1c424052ba4fa20a1e7370f8",
   "name" : "有效评论数",
   "createTime" : null,
-  "updateTime" : 1773300001407,
+  "updateTime" : 1773385220767,
   "lock" : null,
   "createBy" : null,
   "updateBy" : "admin",
@@ -13,7 +13,7 @@
   "method" : "GET",
   "parameters" : [ {
     "name" : "community",
-    "value" : "mindie",
+    "value" : "openeuler",
     "description" : "社区名称",
     "required" : true,
     "dataType" : "String",
@@ -76,7 +76,7 @@
   "requestBody" : "",
   "headers" : [ ],
   "paths" : [ ],
-  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": [{\n        \"month_date\": \"2025-12-01\",\n        \"comments\": 1797\n    }, {\n        \"month_date\": \"2026-01-01\",\n        \"comments\": 2563\n    }, {\n        \"month_date\": \"2026-02-01\",\n        \"comments\": 844\n    }, {\n        \"month_date\": \"2026-03-01\",\n        \"comments\": 722\n    }],\n    \"timestamp\": 1773299991578,\n    \"executeTime\": null\n}",
+  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": [{\n        \"stats_date\": \"2025-08-01\",\n        \"comments\": 874,\n        \"avg_comments\": 2\n    }, {\n        \"stats_date\": \"2025-09-01\",\n        \"comments\": 2174,\n        \"avg_comments\": 2\n    }, {\n        \"stats_date\": \"2025-10-01\",\n        \"comments\": 1138,\n        \"avg_comments\": 2\n    }, {\n        \"stats_date\": \"2025-11-01\",\n        \"comments\": 1322,\n        \"avg_comments\": 2\n    }, {\n        \"stats_date\": \"2025-12-01\",\n        \"comments\": 2676,\n        \"avg_comments\": 2\n    }, {\n        \"stats_date\": \"2026-01-01\",\n        \"comments\": 1603,\n        \"avg_comments\": 2\n    }, {\n        \"stats_date\": \"2026-02-01\",\n        \"comments\": 1163,\n        \"avg_comments\": 2\n    }, {\n        \"stats_date\": \"2026-03-01\",\n        \"comments\": 820,\n        \"avg_comments\": 2\n    }],\n    \"timestamp\": 1773385014617,\n    \"executeTime\": 191\n}",
   "description" : "查询指定社区的日/月/年度的有效评论/review数量，排除机器人发出的评论和命令型评论，适合：趋势分析、历史对比、汇总某年/某月数据。",
   "requestBodyDefinition" : null,
   "responseBodyDefinition" : {
@@ -194,7 +194,8 @@ community = community.toLowerCase()
 
 var sql = """
 SELECT date_trunc('${interval}', created_at)::date as stats_date, 
-    COUNT(*) AS comments
+    COUNT(*) AS comments,
+    (COUNT(*) / COUNT(DISTINCT html_url)) AS avg_comments
 FROM dwm_${community}_user_interaction 
 WHERE company <> 'robot'
     <if test="start != null and start != ''">

@@ -5,7 +5,7 @@
   "groupId" : "39c33765c93e4af089275fbe9ae18d07",
   "name" : "issue汇总分页",
   "createTime" : null,
-  "updateTime" : 1773126761681,
+  "updateTime" : 1773385623154,
   "lock" : null,
   "createBy" : null,
   "updateBy" : "admin",
@@ -25,13 +25,13 @@
     "expression" : null,
     "children" : null
   } ],
-  "requestBody" : "{\r\n    \"start\":1735660800000,\r\n    \"end\":1767110400000,\r\n    \"group_dim\": \"sub_community\",\r\n    \"community\":\"mindall\",\r\n    \"issue_type\": \"\",\r\n    \"issue_type_list\": [],\r\n    \"namespace\":\"\",\r\n    \"repo_path\":\"\",\r\n    \"source\": \"\",\r\n    \"internalList\": [],\r\n    \"private\": \"false\",\r\n    \"asc\":\"one_day_response_ratio\",\r\n    \"desc\":\"\"\r\n}",
+  "requestBody" : "{\r\n    \"start\":1769875200000,\r\n    \"end\":1772294400000,\r\n    \"pageNum\": 1,\r\n    \"pageSize\": 2,\r\n    \"group_dim\": \"\",\r\n    \"community\":\"mindie\",\r\n    \"issue_type\": \"\",\r\n    \"issue_type_list\": [],\r\n    \"namespace\":\"\",\r\n    \"repo_path\":\"\",\r\n    \"source\": \"\",\r\n    \"internalList\": [],\r\n    \"private\": \"false\",\r\n    \"asc\":\"one_day_response_ratio\",\r\n    \"desc\":\"\"\r\n}",
   "headers" : [ ],
   "paths" : [ ],
-  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": {\n        \"total_count\": 10,\n        \"total_page\": 1,\n        \"list\": [{\n            \"sub_community\": \"mindseriessdk\",\n            \"issue_type\": \"All\",\n            \"count\": 585,\n            \"open_count\": 1,\n            \"week_new_count\": 0,\n            \"unresponse_open_count\": 0,\n            \"closed_count\": 628,\n            \"unclosed_count\": 1,\n            \"closed_ratio\": 0.9983,\n            \"avg_first_reply_time\": 62.47,\n            \"avg_closed_time\": 70.04,\n            \"avg_overdue_first_reply_time\": 61.68,\n            \"avg_overdue_closed_time\": 64.24,\n            \"one_day_response_ratio\": 0.06,\n            \"eight_hour_response_ratio\": 0.04,\n            \"five_day_closed_ratio\": 0.40,\n            \"seven_day_closed_ratio\": 0.43,\n            \"comment_num\": 0.40\n        }, {\n            \"sub_community\": \"mindie\",\n            \"issue_type\": \"All\",\n            \"count\": 118,\n            \"open_count\": 22,\n            \"week_new_count\": 5,\n            \"unresponse_open_count\": 0,\n            \"closed_count\": 31,\n            \"unclosed_count\": 22,\n            \"closed_ratio\": 0.8136,\n            \"avg_first_reply_time\": 29.09,\n            \"avg_closed_time\": 38.95,\n            \"avg_overdue_first_reply_time\": 28.16,\n            \"avg_overdue_closed_time\": 22.35,\n            \"one_day_response_ratio\": 0.07,\n            \"eight_hour_response_ratio\": 0.03,\n            \"five_day_closed_ratio\": 0.10,\n            \"seven_day_closed_ratio\": 0.17,\n            \"comment_num\": 0.67\n        }, {\n            \"sub_community\": \"mindcluster\",\n            \"issue_type\": \"All\",\n            \"count\": 178,\n            \"open_count\": 34,\n            \"week_new_count\": 1,\n            \"unresponse_open_count\": 13,\n            \"closed_count\": 151,\n            \"unclosed_count\": 34,\n            \"closed_ratio\": 0.8090,\n            \"avg_first_reply_time\": 73.92,\n            \"avg_closed_time\": 104.54,\n            \"avg_overdue_first_reply_time\": 72.99,\n            \"avg_overdue_closed_time\": 91.65,\n            \"one_day_response_ratio\": 0.10,\n            \"eight_hour_response_ratio\": 0.05,\n            \"five_day_closed_ratio\": 0.13,\n            \"seven_day_closed_ratio\": 0.16,\n            \"comment_num\": 1.66\n        }, {\n            \"sub_community\": \"triton\",\n            \"issue_type\": \"All\",\n            \"count\": 241,\n            \"open_count\": 144,\n            \"week_new_count\": 7,\n            \"unresponse_open_count\": 94,\n            \"closed_count\": 77,\n            \"unclosed_count\": 144,\n            \"closed_ratio\": 0.4025,\n            \"avg_first_reply_time\": 86.95,\n            \"avg_closed_time\": 126.95,\n            \"avg_overdue_first_reply_time\": 86.09,\n            \"avg_overdue_closed_time\": 119.70,\n            \"one_day_response_ratio\": 0.16,\n            \"eight_hour_response_ratio\": 0.13,\n            \"five_day_closed_ratio\": 0.11,\n            \"seven_day_closed_ratio\": 0.13,\n            \"comment_num\": 1.00\n        }, {\n            \"sub_community\": \"pta\",\n            \"issue_type\": \"All\",\n            \"count\": 1937,\n            \"open_count\": 1120,\n            \"week_new_count\": 13,\n            \"unresponse_open_count\": 1077,\n            \"closed_count\": 1068,\n            \"unclosed_count\": 1120,\n            \"closed_ratio\": 0.4218,\n            \"avg_first_reply_time\": 99.00,\n            \"avg_closed_time\": 105.48,\n            \"avg_overdue_first_reply_time\": 98.16,\n            \"avg_overdue_closed_time\": 81.87,\n            \"one_day_response_ratio\": 0.17,\n            \"eight_hour_response_ratio\": 0.12,\n            \"five_day_closed_ratio\": 0.15,\n            \"seven_day_closed_ratio\": 0.19,\n            \"comment_num\": 0.56\n        }, {\n            \"sub_community\": \"vllm\",\n            \"issue_type\": \"All\",\n            \"count\": 1601,\n            \"open_count\": 752,\n            \"week_new_count\": 41,\n            \"unresponse_open_count\": 321,\n            \"closed_count\": 794,\n            \"unclosed_count\": 752,\n            \"closed_ratio\": 0.5303,\n            \"avg_first_reply_time\": 44.38,\n            \"avg_closed_time\": 99.64,\n            \"avg_overdue_first_reply_time\": 43.71,\n            \"avg_overdue_closed_time\": 91.53,\n            \"one_day_response_ratio\": 0.34,\n            \"eight_hour_response_ratio\": 0.23,\n            \"five_day_closed_ratio\": 0.17,\n            \"seven_day_closed_ratio\": 0.19,\n            \"comment_num\": 2.76\n        }, {\n            \"sub_community\": \"ascendnpuir\",\n            \"issue_type\": \"All\",\n            \"count\": 194,\n            \"open_count\": 80,\n            \"week_new_count\": 15,\n            \"unresponse_open_count\": 31,\n            \"closed_count\": 76,\n            \"unclosed_count\": 80,\n            \"closed_ratio\": 0.5876,\n            \"avg_first_reply_time\": 23.40,\n            \"avg_closed_time\": 74.17,\n            \"avg_overdue_first_reply_time\": 22.65,\n            \"avg_overdue_closed_time\": 64.48,\n            \"one_day_response_ratio\": 0.36,\n            \"eight_hour_response_ratio\": 0.26,\n            \"five_day_closed_ratio\": 0.11,\n            \"seven_day_closed_ratio\": 0.13,\n            \"comment_num\": 2.04\n        }, {\n            \"sub_community\": \"tilelang\",\n            \"issue_type\": \"All\",\n            \"count\": 56,\n            \"open_count\": 37,\n            \"week_new_count\": 7,\n            \"unresponse_open_count\": 9,\n            \"closed_count\": 17,\n            \"unclosed_count\": 37,\n            \"closed_ratio\": 0.3393,\n            \"avg_first_reply_time\": 16.99,\n            \"avg_closed_time\": 73.73,\n            \"avg_overdue_first_reply_time\": 16.31,\n            \"avg_overdue_closed_time\": 67.82,\n            \"one_day_response_ratio\": 0.36,\n            \"eight_hour_response_ratio\": 0.25,\n            \"five_day_closed_ratio\": 0.18,\n            \"seven_day_closed_ratio\": 0.18,\n            \"comment_num\": 1.41\n        }, {\n            \"sub_community\": \"mindspeed\",\n            \"issue_type\": \"All\",\n            \"count\": 782,\n            \"open_count\": 117,\n            \"week_new_count\": 6,\n            \"unresponse_open_count\": 30,\n            \"closed_count\": 559,\n            \"unclosed_count\": 117,\n            \"closed_ratio\": 0.8504,\n            \"avg_first_reply_time\": 23.14,\n            \"avg_closed_time\": 69.38,\n            \"avg_overdue_first_reply_time\": 22.45,\n            \"avg_overdue_closed_time\": 60.65,\n            \"one_day_response_ratio\": 0.40,\n            \"eight_hour_response_ratio\": 0.27,\n            \"five_day_closed_ratio\": 0.15,\n            \"seven_day_closed_ratio\": 0.18,\n            \"comment_num\": 2.45\n        }, {\n            \"sub_community\": \"mindstudio\",\n            \"issue_type\": \"All\",\n            \"count\": 268,\n            \"open_count\": 4,\n            \"week_new_count\": 1,\n            \"unresponse_open_count\": 0,\n            \"closed_count\": 254,\n            \"unclosed_count\": 4,\n            \"closed_ratio\": 0.9851,\n            \"avg_first_reply_time\": 5.54,\n            \"avg_closed_time\": 13.76,\n            \"avg_overdue_first_reply_time\": 4.90,\n            \"avg_overdue_closed_time\": 7.59,\n            \"one_day_response_ratio\": 0.57,\n            \"eight_hour_response_ratio\": 0.29,\n            \"five_day_closed_ratio\": 0.33,\n            \"seven_day_closed_ratio\": 0.52,\n            \"comment_num\": 2.83\n        }]\n    },\n    \"timestamp\": 1773126487130,\n    \"executeTime\": 16\n}",
+  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": {\n        \"total_count\": 1,\n        \"total_page\": 1,\n        \"list\": [{\n            \"count\": 88,\n            \"open_count\": 35,\n            \"unresponse_open_count\": 8,\n            \"closed_count\": 32,\n            \"unclosed_count\": 35,\n            \"closed_ratio\": 0.6023,\n            \"avg_first_reply_time\": 13.80,\n            \"avg_closed_time\": 21.62,\n            \"avg_overdue_first_reply_time\": 12.94,\n            \"avg_overdue_closed_time\": 12.77,\n            \"eight_hour_response_ratio\": 0.11,\n            \"one_day_response_ratio\": 0.19,\n            \"five_day_closed_ratio\": 0.05,\n            \"seven_day_closed_ratio\": 0.05,\n            \"comment_num\": 0.48,\n            \"week_new_count\": 10,\n            \"median_first_reply_time\": 14.90,\n            \"median_closed_time\": 5.79\n        }],\n        \"page_size\": 2\n    },\n    \"timestamp\": 1773385578243,\n    \"executeTime\": 129\n}",
   "description" : "issue贡献汇总信息分页查询接口（支持全社区/子社区/仓库维度）返回指标：issue总数、开启issue总数、本周新增issue总数、未响应issue总数、未关闭issue总数、关闭率、平均首次响应时间（天）、平均关闭时间（天）、平均首次响应超时时间（天）、平均关闭超时时间（天）、24小时响应率、8小时响应率、5天内关闭率、7天内关闭率、评论互动数量",
   "requestBodyDefinition" : {
-    "name" : "root",
+    "name" : "",
     "value" : "",
     "description" : "",
     "required" : false,
@@ -43,8 +43,8 @@
     "expression" : "",
     "children" : [ {
       "name" : "start",
-      "value" : "1735660800000",
-      "description" : "开始时间",
+      "value" : "1769875200000",
+      "description" : "开始时间，格式为毫秒时间戳",
       "required" : true,
       "dataType" : "Long",
       "type" : null,
@@ -55,8 +55,8 @@
       "children" : [ ]
     }, {
       "name" : "end",
-      "value" : "1767110400000",
-      "description" : "结束时间",
+      "value" : "1772294400000",
+      "description" : "结束时间，格式为毫秒时间戳",
       "required" : true,
       "dataType" : "Long",
       "type" : null,
@@ -66,8 +66,32 @@
       "expression" : "",
       "children" : [ ]
     }, {
+      "name" : "pageNum",
+      "value" : "1",
+      "description" : "查询页码",
+      "required" : false,
+      "dataType" : "Integer",
+      "type" : null,
+      "defaultValue" : null,
+      "validateType" : "",
+      "error" : "",
+      "expression" : "",
+      "children" : [ ]
+    }, {
+      "name" : "pageSize",
+      "value" : "2",
+      "description" : "每页数量",
+      "required" : false,
+      "dataType" : "Integer",
+      "type" : null,
+      "defaultValue" : null,
+      "validateType" : "",
+      "error" : "",
+      "expression" : "",
+      "children" : [ ]
+    }, {
       "name" : "group_dim",
-      "value" : "sub_community",
+      "value" : "",
       "description" : "聚合维度，如果不填则是全社区汇总",
       "required" : false,
       "dataType" : "String",
@@ -79,7 +103,7 @@
       "children" : [ ]
     }, {
       "name" : "community",
-      "value" : "mindall",
+      "value" : "openeuler",
       "description" : "社区，查询所属社区",
       "required" : true,
       "dataType" : "String",
@@ -247,7 +271,7 @@
       "expression" : "",
       "children" : [ {
         "name" : "total_count",
-        "value" : "10",
+        "value" : "1",
         "description" : "数据总数",
         "required" : false,
         "dataType" : "Integer",
@@ -292,32 +316,8 @@
           "error" : "",
           "expression" : "",
           "children" : [ {
-            "name" : "sub_community",
-            "value" : "mindseriessdk",
-            "description" : "子社区/社区",
-            "required" : false,
-            "dataType" : "String",
-            "type" : null,
-            "defaultValue" : null,
-            "validateType" : "",
-            "error" : "",
-            "expression" : "",
-            "children" : [ ]
-          }, {
-            "name" : "issue_type",
-            "value" : "All",
-            "description" : "issue类型，all-代表全类型",
-            "required" : false,
-            "dataType" : "String",
-            "type" : null,
-            "defaultValue" : null,
-            "validateType" : "",
-            "error" : "",
-            "expression" : "",
-            "children" : [ ]
-          }, {
             "name" : "count",
-            "value" : "585",
+            "value" : "88",
             "description" : "issue总数",
             "required" : false,
             "dataType" : "Integer",
@@ -329,7 +329,7 @@
             "children" : [ ]
           }, {
             "name" : "open_count",
-            "value" : "1",
+            "value" : "35",
             "description" : "开启issue总数",
             "required" : false,
             "dataType" : "Integer",
@@ -340,20 +340,8 @@
             "expression" : "",
             "children" : [ ]
           }, {
-            "name" : "week_new_count",
-            "value" : "0",
-            "description" : "本周新增issue数",
-            "required" : false,
-            "dataType" : "Integer",
-            "type" : null,
-            "defaultValue" : null,
-            "validateType" : "",
-            "error" : "",
-            "expression" : "",
-            "children" : [ ]
-          }, {
             "name" : "unresponse_open_count",
-            "value" : "0",
+            "value" : "8",
             "description" : "未响应issue总数",
             "required" : false,
             "dataType" : "Integer",
@@ -365,7 +353,7 @@
             "children" : [ ]
           }, {
             "name" : "closed_count",
-            "value" : "628",
+            "value" : "32",
             "description" : "关闭issue总数",
             "required" : false,
             "dataType" : "Integer",
@@ -377,7 +365,7 @@
             "children" : [ ]
           }, {
             "name" : "unclosed_count",
-            "value" : "1",
+            "value" : "35",
             "description" : "未关闭issue总数",
             "required" : false,
             "dataType" : "Integer",
@@ -389,7 +377,7 @@
             "children" : [ ]
           }, {
             "name" : "closed_ratio",
-            "value" : "0.9983",
+            "value" : "0.6023",
             "description" : "关闭率",
             "required" : false,
             "dataType" : "Double",
@@ -401,7 +389,7 @@
             "children" : [ ]
           }, {
             "name" : "avg_first_reply_time",
-            "value" : "62.47",
+            "value" : "13.80",
             "description" : "平均首次响应时间，单位天",
             "required" : false,
             "dataType" : "Double",
@@ -413,7 +401,7 @@
             "children" : [ ]
           }, {
             "name" : "avg_closed_time",
-            "value" : "70.04",
+            "value" : "21.62",
             "description" : "平均关闭时间，单位天",
             "required" : false,
             "dataType" : "Double",
@@ -425,7 +413,7 @@
             "children" : [ ]
           }, {
             "name" : "avg_overdue_first_reply_time",
-            "value" : "61.68",
+            "value" : "12.94",
             "description" : "平均首次响应超时时间，单位天",
             "required" : false,
             "dataType" : "Double",
@@ -437,7 +425,7 @@
             "children" : [ ]
           }, {
             "name" : "avg_overdue_closed_time",
-            "value" : "64.24",
+            "value" : "12.77",
             "description" : "平均关闭超时时间，单位天",
             "required" : false,
             "dataType" : "Double",
@@ -448,20 +436,8 @@
             "expression" : "",
             "children" : [ ]
           }, {
-            "name" : "one_day_response_ratio",
-            "value" : "0.06",
-            "description" : "24小时响应率",
-            "required" : false,
-            "dataType" : "Double",
-            "type" : null,
-            "defaultValue" : null,
-            "validateType" : "",
-            "error" : "",
-            "expression" : "",
-            "children" : [ ]
-          }, {
             "name" : "eight_hour_response_ratio",
-            "value" : "0.04",
+            "value" : "0.11",
             "description" : "8小时响应率",
             "required" : false,
             "dataType" : "Double",
@@ -472,8 +448,20 @@
             "expression" : "",
             "children" : [ ]
           }, {
+            "name" : "one_day_response_ratio",
+            "value" : "0.19",
+            "description" : "24小时响应率",
+            "required" : false,
+            "dataType" : "Double",
+            "type" : null,
+            "defaultValue" : null,
+            "validateType" : "",
+            "error" : "",
+            "expression" : "",
+            "children" : [ ]
+          }, {
             "name" : "five_day_closed_ratio",
-            "value" : "0.40",
+            "value" : "0.05",
             "description" : "5天内关闭率",
             "required" : false,
             "dataType" : "Double",
@@ -485,7 +473,7 @@
             "children" : [ ]
           }, {
             "name" : "seven_day_closed_ratio",
-            "value" : "0.43",
+            "value" : "0.05",
             "description" : "7天内关闭率",
             "required" : false,
             "dataType" : "Double",
@@ -497,8 +485,44 @@
             "children" : [ ]
           }, {
             "name" : "comment_num",
-            "value" : "0.40",
+            "value" : "0.48",
             "description" : "评论互动数量",
+            "required" : false,
+            "dataType" : "Double",
+            "type" : null,
+            "defaultValue" : null,
+            "validateType" : "",
+            "error" : "",
+            "expression" : "",
+            "children" : [ ]
+          }, {
+            "name" : "week_new_count",
+            "value" : "10",
+            "description" : "本周新增issue数",
+            "required" : false,
+            "dataType" : "Integer",
+            "type" : null,
+            "defaultValue" : null,
+            "validateType" : "",
+            "error" : "",
+            "expression" : "",
+            "children" : [ ]
+          }, {
+            "name" : "median_first_reply_time",
+            "value" : "14.90",
+            "description" : "首次响应时间中位数，单位天",
+            "required" : false,
+            "dataType" : "Double",
+            "type" : null,
+            "defaultValue" : null,
+            "validateType" : "",
+            "error" : "",
+            "expression" : "",
+            "children" : [ ]
+          }, {
+            "name" : "median_closed_time",
+            "value" : "5.79",
+            "description" : "关闭时间中位数，单位天",
             "required" : false,
             "dataType" : "Double",
             "type" : null,
@@ -509,10 +533,22 @@
             "children" : [ ]
           } ]
         } ]
+      }, {
+        "name" : "page_size",
+        "value" : "2",
+        "description" : "每页数量",
+        "required" : false,
+        "dataType" : "Integer",
+        "type" : null,
+        "defaultValue" : null,
+        "validateType" : "",
+        "error" : "",
+        "expression" : "",
+        "children" : [ ]
       } ]
     }, {
       "name" : "timestamp",
-      "value" : "1773126487130",
+      "value" : "1773385578243",
       "description" : "响应时间戳",
       "required" : false,
       "dataType" : "Long",
@@ -524,7 +560,7 @@
       "children" : [ ]
     }, {
       "name" : "executeTime",
-      "value" : "16",
+      "value" : "129",
       "description" : "",
       "required" : false,
       "dataType" : "Integer",
@@ -622,6 +658,7 @@ if (order_by_set.size() > 0){
 }
 
 var contributeTable = "dws_" + community + "_issue_contribute_repo_daily";
+var contributeTable_ori = "dws_" + community + "_contribute";
 var repoTable = "fact_" + community + "_repo";
 var communityTable = "fact_community_structure";
 
@@ -769,13 +806,55 @@ contribute_data AS (
             </foreach>
         </if>
     </where>
+),
+median_data as (
+    SELECT
+        ROUND((PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY COALESCE(first_reply_time, 0)) / 86400.0)::NUMERIC, 2) as median_first_reply_time,
+        ROUND((PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY COALESCE(closed_time, 0)) / 86400.0)::NUMERIC, 2) as median_closed_time
+    FROM ${contributeTable_ori}
+    <where>
+        contrib_type = 'issue' and is_hide is null and is_removed is null
+        <if test="start != null ">
+            and created_at::date >= #{start}
+        </if>
+        <if test="end != null ">
+            and created_at::date <= #{end}
+        </if>
+        <if test="namespace != null and namespace != ''">
+            and namespace LIKE CONCAT('%', #{namespace}, '%')
+        </if>
+        <if test="repo_path != null and repo_path != ''">
+            and repo_path LIKE CONCAT('%', #{repo_path}, '%')
+        </if>
+        <if test="issue_type != null and issue_type != ''">
+            and super_issue_type = #{issue_type}
+        </if>
+        <if test="issueTypeList != null and issueTypeList.size() > 0">
+            and super_issue_type in
+            <foreach collection="issueTypeList" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="source != null and source != ''">
+            and source = #{source}
+        </if>
+        <if test="private != null and private != ''">
+            and private = #{private}
+        </if>
+        <if test="internalList != null and internalList.size() > 0">
+            and internal in
+            <foreach collection="internalList" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </where>
 )
 SELECT 
     *, 
     (select count(1) from contribute_data) as total_count, 
     CEIL((select count(1) from contribute_data)::numeric/#{page_size}) as total_page
 FROM 
-    contribute_data, last_week_data
+    contribute_data, last_week_data, median_data
 <if test="order_by != null and order_by != ''">
     ORDER BY ${order_by}
 </if>
@@ -883,12 +962,14 @@ if (group_dim != null and group_dim != ''){
                         ELSE sum(first_reply_time)::NUMERIC / sum(issue_incre) / 86400
                     END::NUMERIC , 2
                 ) as avg_first_reply_time,
+                ROUND((PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY COALESCE(first_reply_time, 0)) / 86400.0)::NUMERIC, 2) as median_first_reply_time,
                 ROUND(
                     CASE
                         WHEN sum(issue_incre) = 0 THEN 0
                         ELSE sum(closed_time)::NUMERIC / sum(issue_incre) / 86400
                     END::NUMERIC , 2
                 ) as avg_closed_time,
+                ROUND((PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY COALESCE(closed_time, 0)) / 86400.0)::NUMERIC, 2) as median_closed_time,
                 ROUND(
                     CASE
                         WHEN sum(issue_incre) = 0 THEN 0
@@ -1004,6 +1085,8 @@ if (group_dim != null and group_dim != ''){
                 COALESCE(unclosed_count, 0) as unclosed_count, 
                 COALESCE(closed_ratio, 0) as closed_ratio, 
                 COALESCE(avg_first_reply_time, 0) as avg_first_reply_time, 
+                COALESCE(median_first_reply_time, 0) as median_first_reply_time,
+                COALESCE(median_closed_time, 0) as median_closed_time,
                 COALESCE(avg_closed_time, 0) as avg_closed_time, 
                 COALESCE(avg_overdue_first_reply_time, 0) as avg_overdue_first_reply_time, 
                 COALESCE(avg_overdue_closed_time, 0) as avg_overdue_closed_time,
@@ -1054,4 +1137,5 @@ HashMap result = new HashMap();
 result.put("list", query_data);
 result.put("total_count", total_count);
 result.put("total_page", total_page);
+result.put("page_size", page_size);
 return result

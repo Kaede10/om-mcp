@@ -12,27 +12,46 @@ def load_apidocs_templates() -> List[ToolTemplate]:
     templates = []
 
     if not os.path.isdir(_APIDOCS_DIR):
-        print("No api docs in path :{_APIDOCS_DIR}")
+        print(f"No api docs in path: {_APIDOCS_DIR}")
         return templates
 
-    for group_dir in sorted(os.listdir(_APIDOCS_DIR)):
-        group_path = os.path.join(_APIDOCS_DIR, group_dir)
-        if not os.path.isdir(group_path):
-            continue
+    _walk_dir(_APIDOCS_DIR, {}, templates)
+    return templates
 
-        group_info = _load_group_info(group_path)
 
-        for filename in sorted(os.listdir(group_path)):
-            if not filename.endswith(".ms"):
-                continue
-            ms_path = os.path.join(group_path, filename)
-            template = _parse_ms_file(ms_path, group_info)
+def _walk_dir(dir_path: str, parent_group_info: dict, templates: list):
+    group_info = _merge_group_info(parent_group_info, _load_group_info(dir_path))
+
+    for filename in sorted(os.listdir(dir_path)):
+        full_path = os.path.join(dir_path, filename)
+        if filename.endswith(".ms") and os.path.isfile(full_path):
+            template = _parse_ms_file(full_path, group_info)
             if template:
                 templates.append(template)
 
-    return templates
+    for entry in sorted(os.listdir(dir_path)):
+        sub_path = os.path.join(dir_path, entry)
+        if os.path.isdir(sub_path):
+            _walk_dir(sub_path, group_info, templates)
 
-def _load_group_info(group_dir: str) -> str:
+
+def _merge_group_info(parent: dict, child: dict) -> dict:
+    if not child:
+        return parent
+    merged = dict(child)
+    child_path = (merged.get("path") or "").strip("/")
+    parent_path = (parent.get("path") or "").rstrip("/")
+    merged["path"] = parent_path + "/" + child_path if child_path else parent_path
+    parent_name = parent.get("name", "")
+    child_name = child.get("name", "")
+    if parent_name and child_name:
+        merged["name"] = parent_name + " > " + child_name
+    elif parent_name:
+        merged["name"] = parent_name
+    return merged
+
+
+def _load_group_info(group_dir: str) -> dict:
     group_json = os.path.join(group_dir, "group.json")
     if not os.path.exists(group_json):
         return {}

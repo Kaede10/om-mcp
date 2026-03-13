@@ -172,14 +172,14 @@ A: 使用默认值 `""`，在函数内部用 `if param:` 判断是否传入。
 |---|------|---------|---------|
 | 1 | 当期活跃开发者数 | `get_stats_contribute(interval=month)` | `activate_user` |
 | 2 | 合入PR个数、提交Issue个数 | `get_stats_contribute(interval=month)` | `merged_prs`, `issues` |
-| 3 | 有效Review数 | `get_stats_valid_comment(interval=month)` | `comments` |
+| 3 | 有效Review总数、均值 | `get_stats_valid_comment(interval=month)` | `comments`, `avg_comments` |
 | 4 | 领域主流项目适配、集成、引用度 | `get_stats_itegration()` | `count` |
 | 5 | TOP开发者留存情况 | `get_stats_user_retention(interval=month)` | `user_count` |
 | 6 | YTD社区下载量 | `get_stats_year_download()` | `download` |
-| 7 | Issue平均首次响应时间（天） | `get_issues_aggregate()` / | `avg_first_response` |
-| 8 | Issue平均闭环时间（天） | `get_issues_aggregate()` | `avg_close_time` |
-| 9 | 论坛平均首次响应时间（天） | `get_stats_forum()` | `avg_first_reply_time` |
-| 10 | 论坛平均闭环时间（天） | `get_stats_forum()` | `avg_closed_time` |
+| 7 | Issue首次响应时间（平均值、中位数）（天） | `get_query_issues_agg()` | `avg_first_reply_time`, `median_first_reply_time` |
+| 8 | Issue闭环时间（平均值、中位数）（天） | `get_query_issues_agg()` | `avg_close_time`, `median_closed_time` |
+| 9 | 论坛平均首次响应时间（平均值、中位数）（天） | `get_stats_forum()` | `avg_first_reply_time`, `median_first_reply_time` |
+| 10 | 论坛平均闭环时间（平均值、中位数）（天） | `get_stats_forum()` | `avg_closed_time`, `median_closed_time` |
 | 11 | 版本稳定发布偏差 | `get_stats_health_metric(metric=version_release)` | `avg` |
 | 12 | 社区组织多样性 | `get_stats_company(interval=month)` | `count` |
 | 13 | 主流平台搜索指数 | `get_stats_influence(interval=month)` | `avg_index` |

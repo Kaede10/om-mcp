@@ -5,7 +5,7 @@
   "groupId" : "2e2220ca1c424052ba4fa20a1e7370f8",
   "name" : "论坛指标",
   "createTime" : null,
-  "updateTime" : 1773364848302,
+  "updateTime" : 1773384245228,
   "lock" : null,
   "createBy" : null,
   "updateBy" : "admin",
@@ -13,7 +13,7 @@
   "method" : "GET",
   "parameters" : [ {
     "name" : "community",
-    "value" : "openeuler",
+    "value" : "mindie",
     "description" : "社区名称",
     "required" : true,
     "dataType" : "String",
@@ -25,7 +25,7 @@
     "children" : null
   }, {
     "name" : "start",
-    "value" : null,
+    "value" : "1769875200000",
     "description" : "查询范围开始时间，格式为毫秒时间戳",
     "required" : false,
     "dataType" : "Long",
@@ -37,7 +37,7 @@
     "children" : null
   }, {
     "name" : "end",
-    "value" : null,
+    "value" : "1772294400000",
     "description" : "查询范围结束时间，格式为毫秒时间戳",
     "required" : false,
     "dataType" : "Long",
@@ -48,11 +48,23 @@
     "expression" : null,
     "children" : null
   } ],
-  "options" : [ ],
+  "options" : [ {
+    "name" : "wrap_request_parameter",
+    "value" : "disable-cache",
+    "description" : "包装请求参数到一个变量中",
+    "required" : false,
+    "dataType" : "String",
+    "type" : null,
+    "defaultValue" : null,
+    "validateType" : null,
+    "error" : null,
+    "expression" : null,
+    "children" : null
+  } ],
   "requestBody" : "",
   "headers" : [ ],
   "paths" : [ ],
-  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": [{\n        \"count\": 2595,\n        \"avg_first_reply_time\": 21.23,\n        \"avg_closed_time\": 21.23\n    }],\n    \"timestamp\": 1773134517117,\n    \"executeTime\": 15\n}",
+  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": [{\n        \"count\": 11,\n        \"avg_first_reply_time\": 12.66,\n        \"avg_closed_time\": 34.35,\n        \"median_first_reply_time\": 0.74,\n        \"median_closed_time\": 36.07\n    }],\n    \"timestamp\": 1773367776499,\n    \"executeTime\": 5\n}",
   "description" : "统计社区论坛汇总指标（平均首次响应时间、平均闭环时间）",
   "requestBodyDefinition" : null,
   "responseBodyDefinition" : {
@@ -114,7 +126,7 @@
         "expression" : "",
         "children" : [ {
           "name" : "count",
-          "value" : "2595",
+          "value" : "2600",
           "description" : "论坛帖子总数",
           "required" : false,
           "dataType" : "Integer",
@@ -126,8 +138,8 @@
           "children" : [ ]
         }, {
           "name" : "avg_first_reply_time",
-          "value" : "21.23",
-          "description" : "论坛帖子平均首次响应时间",
+          "value" : "21.29",
+          "description" : "首次响应时间平均值",
           "required" : false,
           "dataType" : "Double",
           "type" : null,
@@ -138,8 +150,32 @@
           "children" : [ ]
         }, {
           "name" : "avg_closed_time",
-          "value" : "21.23",
-          "description" : "论坛帖子平均闭环时间",
+          "value" : "21.29",
+          "description" : "关闭时间平均值",
+          "required" : false,
+          "dataType" : "Double",
+          "type" : null,
+          "defaultValue" : null,
+          "validateType" : "",
+          "error" : "",
+          "expression" : "",
+          "children" : [ ]
+        }, {
+          "name" : "median_first_reply_time",
+          "value" : "29.21",
+          "description" : "首次响应时间中位数",
+          "required" : false,
+          "dataType" : "Double",
+          "type" : null,
+          "defaultValue" : null,
+          "validateType" : "",
+          "error" : "",
+          "expression" : "",
+          "children" : [ ]
+        }, {
+          "name" : "median_closed_time",
+          "value" : "588.67",
+          "description" : "关闭时间中位数",
           "required" : false,
           "dataType" : "Double",
           "type" : null,
@@ -152,7 +188,7 @@
       } ]
     }, {
       "name" : "timestamp",
-      "value" : "1773134517117",
+      "value" : "1773367432276",
       "description" : "",
       "required" : false,
       "dataType" : "Long",
@@ -164,7 +200,7 @@
       "children" : [ ]
     }, {
       "name" : "executeTime",
-      "value" : "15",
+      "value" : "7",
       "description" : "",
       "required" : false,
       "dataType" : "Integer",
@@ -183,6 +219,8 @@ community = community.toLowerCase()
 var sql = """
 SELECT
         count(*) as count, 
+        ROUND((AVG(COALESCE(first_reply_duration, 0)) / 86400.0)::NUMERIC, 2) AS avg_first_reply_time,
+        ROUND((AVG(COALESCE(closed_time, 0)) / 86400.0)::NUMERIC, 2) AS avg_closed_time,
         ROUND((PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY COALESCE(first_reply_duration, 0)) / 86400.0)::NUMERIC, 2) AS median_first_reply_time,
         ROUND((PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY COALESCE(closed_time, 0)) / 86400.0)::NUMERIC, 2) AS median_closed_time
 FROM fact_${community}_forum_topic
