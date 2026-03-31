@@ -5,7 +5,7 @@
   "groupId" : "9af308d96b55470faeda3c9b3357f836",
   "name" : "社区会议预定查询",
   "createTime" : null,
-  "updateTime" : 1774355687252,
+  "updateTime" : 1774928196611,
   "lock" : null,
   "createBy" : "admin",
   "updateBy" : "admin",
@@ -116,8 +116,8 @@
     "type" : null,
     "defaultValue" : "created_at",
     "validateType" : "pattern",
-    "error" : "sort 只能为 created_at、start、topic",
-    "expression" : "^(created_at|start|topic)?$",
+    "error" : "sort 只能为 created_at、sig_name、meeting_id",
+    "expression" : "^(created_at|sig_name|meeting_id)?$",
     "children" : null
   }, {
     "name" : "direction",
@@ -130,6 +130,18 @@
     "validateType" : "pattern",
     "error" : "direction 只能为 asc 或 desc",
     "expression" : "^(asc|desc|ASC|DESC)?$",
+    "children" : null
+  }, {
+    "name" : "meeting_id",
+    "value" : "3214",
+    "description" : null,
+    "required" : false,
+    "dataType" : "String",
+    "type" : null,
+    "defaultValue" : null,
+    "validateType" : null,
+    "error" : null,
+    "expression" : null,
     "children" : null
   } ],
   "options" : [ {
@@ -203,6 +215,9 @@ WHERE
     <if test="not_blank(sponsor)">
         AND "sponsor" = #{sponsor}
     </if>
+    <if test="not_blank(meeting_id)">
+        AND "meeting_id" = #{meeting_id}
+    </if>
     <if test="not_blank(created_after)">
         AND "created_at" >= #{created_after}::timestamptz
     </if>
@@ -211,17 +226,8 @@ WHERE
     </if>
     AND "is_removed" IS NULL
 ORDER BY ${sort_field} ${sort_dir}
-LIMIT #{page_size} OFFSET #{off}
 """
 
-var resp = db.select(sqlstr)
-
-for (it in resp) {
-    for (key, value in it) {
-        if (key == 'agenda' || key == 'email_list' || key == 'topic') {
-            it[key] = value != null ? value::json : null
-        }
-    }
-}
+var resp = db.page(sqlstr, page_size, off)
 
 return resp
