@@ -146,56 +146,37 @@ get_meeting_participants_info(
 
 | 字段 | 内容 |
 |------|------|
-| 会议ID | 3174 |
-| 主题 | openEuler TC双周例会 |
-| SIG组 | TC |
-| 发起人 | georgecao |
-| 创建时间 | 2026-02-11 00:00:00 |
+| 会议ID | 1247 |
+| 主题 | Compiler SIG双周会议 |
+| SIG组 | Compiler |
+| 发起人 | chenzheng1030 |
+| 创建时间 | 2026-03-31 00:00:00 |
 | 开始时间 | 10:00 |
-| 结束时间 | 12:00 |
-| 平台 | welink |
-| 会议链接 | https://meeting.huaweicloud.com:36443/#/j/960493493 |
-| Etherpad | https://etherpad.openeuler.org/p/TC-meetings |
-| 邮件列表 | tc@openeuler.org;dev@openeuler.org |
+| 结束时间 | 11:30 |
+| 平台 | ZOOM |
+| 会议链接 | https://us06web.zoom.us/j/84869178160?pwd=vjYgGbJbJbbLbkHlUvKKsDrrL8xQTX.1 |
+| Etherpad | https://etherpad.openeuler.org/p/Compiler-meetings |
+| 议程 | 1. 近期工作进展同步 2.议题讨论环节（欢迎提前在 Etherpad会议纪要的 "二、议题列表"中提交您的议题） |
 
-**参与人信息**：暂无数据（API返回空列表）
-
----
-
-### openeuler sig-QA 组最近一次会议
-
-**会议信息**：
-
-| 字段 | 内容 |
-|------|------|
-| 会议ID | 3214 |
-| 主题 | QA SIG例会 |
-| SIG组 | sig-QA |
-| 发起人 | hfutsdd |
-| 创建时间 | 2026-02-04 00:00:00 |
-| 开始时间 | 14:15 |
-| 结束时间 | 16:15 |
-| 平台 | welink |
-| 会议链接 | https://meeting.huaweicloud.com:36443/#/j/966359845 |
-| Etherpad | https://etherpad.openeuler.org/p/sig-QA-meetings |
-| 邮件列表 | qa@openeuler.org |
-
-**参与人信息**（共15人）：
+**参与人信息**（共16人）：
 
 | 序号 | 用户名 |
 |------|--------|
-| 1 | chenyx130 |
-| 2 | jiangxinyu |
-| 3 | lemon |
-| 4 | liangya lwx1276251 |
-| 5 | Lijie l00498886 |
-| 6 | shidongdong s00475742 |
-| 7 | tangzhengliang t00886669 |
-| 8 | wujie-iscas |
-| 9 | Zhangziyang z00608440 |
-| 10 | zhu_jinlong |
-| 11 | zhuofeng z30027100 |
-| 12 | 刘婧婧 |
-| 13 | 张天宇 |
-| 14 | 李永强 |
-| 15 | 武碧洁 |
+| 1 | 谢志恒 |
+| 2 | Intel-胡林 |
+| 3 | wuying |
+| 4 | huawei-wangjiawei |
+| 5 | 麒麟软件-金旭 |
+| 6 | xiezhaokun |
+| 7 | 王凯 |
+| 8 | liweigang |
+| 9 | ewang |
+| 10 | 华为-李云飞 |
+| 11 | douyiwang |
+| 12 | 华为-李彦成 |
+| 13 | beta |
+| 14 | Jiacheng Zhou |
+| 15 | 邓晓豫 |
+| 16 | 陈正 |
+
+
