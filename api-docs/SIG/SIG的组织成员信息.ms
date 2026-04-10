@@ -53,7 +53,7 @@
   "headers" : [ ],
   "paths" : [ ],
   "responseBody" : null,
-  "description" : "获取社区某个SIG的所有组织成员信息（也是社区会议中召开会议的组织成员信息）",
+  "description" : "获取社区某个SIG的所有组织成员信息（属于社区组织架构成员的一部分）",
   "requestBodyDefinition" : null,
   "responseBodyDefinition" : null
 }

@@ -254,6 +254,124 @@ get_meeting_participants_info(
 | 11 | sig-security |
 | 12 | TC |
 
-> **注意**：TC（Technical Committee）通常作为技术委员会单独列出，不属于常规 SIG 组。
+>  **注意**：TC（Technical Committee）通常作为技术委员会单独列出，不属于常规 SIG 组。
+
+---
+
+## 案例：查询社区所有组织类型
+
+**场景**：查看某社区的组织架构，包括所有 SIG 组和组织列表。
+
+### 完整查询流程
+
+调用 `get_community_org_type` 接口：
+
+```python
+get_community_org_type(community="openeuler")
+```
+
+### 关键字段说明
+
+| 字段 | 含义 |
+|------|------|
+| `sigs` | SIG 组列表（数组） |
+| `orgs` | 组织列表（（数组） |
+
+### 实际查询结果示例
+
+**openEuler 社区组织类型**：
+
+**SIG 组（109个）**：
+
+ai, Application, A-Tune, Base-service, bigdata, Compiler, Computing, DB, Desktop, dev-utils, doc, ecopkg, G11N, GNOME, Infrastructure, iSulad, Kernel, Marketing, Networking, Others, oVirt, Packaging, Private, Programming-language, Runtime, security-committee, sig-AccLib, sig-Arm, sig-bio, sig-BMC, sig-CICD, sig-cinnamon, sig-CloudNative, sig-Compatibility-Infra, sig-compat-winapp, sig-compliance, sig-confidential-computing, sig-DDE, sig-desktop-apps, sig-DevStation, sig-distributed-middleware, sig-DPU, sig-EasyLife, sig-ebpf, sig-Edge, sig-embedded, sig-epkg, sig-epol, sig-FangTian, sig-Gatekeeper, sig-golang, sig-Ha, sig-haskell, sig-high-performance-network, sig-HPC, sig-Hygon, sig-IDE, sig-industrial-control, sig-Intel-Arch, sig-intelligence, sig-Java, sig-K8sDistro, sig-KDE, sig-KIRAN-DESKTOP, sig-Long, sig-LoongArch, sig-mate-desktop, sig-MCP-Tools-Ecosystem, sig-memsafety, sig-message-middleware, sig-Migration, sig-minzuchess, sig-nodejs, sig-OceanBase, sig-OpenDesign, sig-openstack, sig-ops, sig-OS-Builder, sig-OSCourse, sig-perl-modules, sig-porting-platform-winapp, sig-power-efficient, sig-python-modules, sig-QA, sig-QT, sig-recycle, sig-release-management, sig-RISC-V, sig-ROS, sig-ruby, sig-SBC, sig-sbom, sig-SDS, sig-security-facility, sig-Space, sig-sw-arch, sig-Talent-and-Service, sig-UB-ServiceCore, sig-UKUI, sig-UnifiedBus, sig-WayCa, sig-YuanRong, sig-Zephyr, Storage, System-tool, TC, user-committee, Virt, xfce
+
+**组织（11个）**：
+
+| 序号 | 组织名称 |
+|------|---------|
+| 1 | openEuler AI联合工作组 |
+| 2 | openEuler 业务发展工作组 |
+| 3 | openEuler 全球化工作组 |
+| 4 | openEuler 品牌委员会 |
+| 5 | openEuler 委员会 |
+| 6 | openEuler 委员会顾问专家委员会 |
+| 7 | openEuler 技术委员会 |
+| 8 | openEuler 教育工作组 |
+| 9 | openEuler 法务工作组 |
+| 10 | openEuler 用户委员会 |
+| 11 | openEuler 社区运营工作组 |
+
+>  **注意**：此接口返回的是社区组织架构的顶层分类，可用于后续查询特定 SIG 组成员或组织成员详情。
+
+---
+
+## 案例：查询组织成员详情
+
+**场景**：查看社区某个组织的成员详情，包括姓名、职位和所属机构。
+
+### 完整查询流程
+
+调用 `get_community_org_member` 接口：
+
+```python
+get_community_org_member(
+    community="openeuler",
+    org="openEuler 委员会"
+)
+```
+
+### 关键字段说明
+
+| 字段 | 含义 |
+|------|------|
+| `user_name` | 用户姓名 |
+| `position` | 职位（主席/常务委员会委员/委员/执行总监/执行秘书等） |
+| `organization` | 所属组织/机构 |
+| `email` | 邮箱（可能为空） |
+
+### 实际查询结果示例
+
+**openEuler 委员会成员详情（共15人）**
+
+**主席（1人）**：
+
+| 职位 | 姓名 | 组织 |
+|------|------|------|
+| 主席 | 熊伟 | 华为技术有限公司 |
+
+**常务委员会委员（5人）**：
+
+| 职位 | 姓名 | 组织 |
+|------|------|------|
+| 常务委员会委员 | 韩乃平 | 麒麟软件有限公司 |
+| 常务委员会委员 | 刘文清 | 湖南麒麟信安科技股份有限公司 |
+| 常务委员会委员 | 屈晟 | 中国科学院软件研究所 |
+| 常务委员会委员 | 张磊 | 统信软件技术有限公司 |
+
+**委员（7人）**：
+
+| 职位 | 姓名 | 组织 |
+|------|------|------|
+| 委员 | 高培 | 软通动力信息技术（集团）股份有限公司 |
+| 委员 | 李培源 | 天翼云科技有限公司 |
+| 委员 | 田俊 | 英特尔（中国）有限公司 |
+| 委员 | 王皓 | 超聚变数字技术有限公司 |
+| 委员 | 于力 | 南方电网数字电网科技有限（广东）公司 |
+| 委员 | 于萍 | 江苏润和软件股份有限公司 |
+| 委员 | 张胜举 | 中国移动云能力中心 |
+| 委员 | 钟忻 | 联通数字科技有限公司 |
+
+**执行人员（2人）**：
+
+| 职位 | 姓名 | 组织 |
+|------|------|------|
+| 执行总监 | 胡正策 | 华为技术有限公司 |
+| 执行秘书 | 刘彦飞 | 开放原子开源基金会 |
+
+> **注意**：组织名称必须与 `get_community_org_type` 返回的 `orgs` 列表中的名称完全一致。
+
+
+
+
 
 
