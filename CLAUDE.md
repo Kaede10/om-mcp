@@ -170,19 +170,19 @@ A: 使用默认值 `""`，在函数内部用 `if param:` 判断是否传入。
 
 | # | 指标 | MCP 工具 | 关键字段 |
 |---|------|---------|---------|
-| 1 | 当期活跃开发者数 | `get_stats_contribute(interval=month)` | `activate_user` |
-| 2 | 合入PR个数、提交Issue个数 | `get_stats_contribute(interval=month)` | `merged_prs`, `issues` |
-| 3 | 有效Review总数、均值 | `get_stats_valid_comment(interval=month)` | `comments`, `avg_comments` |
+| 1 | 当期活跃开发者数 | `get_stats_contribute()` | `activate_user` |
+| 2 | 合入PR个数、提交Issue个数 | `get_stats_contribute()` | `merged_prs`, `issues` |
+| 3 | 有效Review总数、均值 | `get_stats_valid_comment()` | `comments`, `avg_comments` |
 | 4 | 领域主流项目适配、集成、引用度 | `get_stats_itegration()` | `count` |
 | 5 | TOP开发者留存率 | `get_stats_user_retention()` | `ratio` |
 | 6 | YTD社区下载量 | `get_stats_year_download()` | `download` |
 | 7 | Issue首次响应时间（平均值、中位数）（天） | `get_stats_issue()` | `avg_first_reply_time`, `median_first_reply_time` |
-| 8 | Issue闭环时间（平均值、中位数）（天） | `get_stats_issue()` | `avg_close_time`, `median_closed_time` |
+| 8 | Issue闭环时间（平均值、中位数）（天） | `get_stats_issue()` | `avg_closed_time`, `median_closed_time` |
 | 9 | 论坛平均首次响应时间（平均值、中位数）（天） | `get_stats_forum()` | `avg_first_reply_time`, `median_first_reply_time` |
 | 10 | 论坛平均闭环时间（平均值、中位数）（天） | `get_stats_forum()` | `avg_closed_time`, `median_closed_time` |
 | 11 | 版本稳定发布偏差 | `get_stats_health_metric(metric=version_release)` | `avg` |
-| 12 | 社区组织多样性 | `get_stats_company(interval=month)` | `count` |
-| 13 | 主流平台搜索指数 | `get_stats_influence(interval=month)` | `avg_index` |
+| 12 | 社区组织多样性 | `get_stats_company()` | `count` |
+| 13 | 主流平台搜索指数 | `get_stats_influence()` | `avg_index` |
 | 14 | 社区严重缺陷数 | `get_stats_cve()` | `total_count` |
 | 15 | 负向事件数量 | `get_stats_negative_event()` | `total_count` |
 
@@ -213,7 +213,6 @@ A: 使用默认值 `""`，在函数内部用 `if param:` 判断是否传入。
 **月度趋势分析时间规则：**
 - 统计周期为**上一个自然月**（例如3月查询时，统计范围为2月1日～2月末）
 - 工具仅有单个时间参数（如 `date`）时，传入**上月末**的毫秒时间戳（例如3月查询时，传入 2月28日 23:59:59 UTC 的时间戳）
-- **`interval` 参数必须使用英文**：`month` / `day` / `year`，不能用中文"月/日/年"
 - **下载量例外**：使用年初至上月末的累计数据（`get_stats_year_download`），需同时展示：
   - 当月下载量（本月YTD - 上月YTD）
   - 年初至当月累计总量（YTD）
@@ -226,7 +225,7 @@ A: 使用默认值 `""`，在函数内部用 `if param:` 判断是否传入。
 - 报告保存至 `reports/` 目录
 - 文件命名格式：`{community}_community_quality_monthly_{YYYYMM}.md`
 - 示例：`example_community_quality_monthly_202603.md`
-- **报告完整性检查（保存前必须逐项核对）**：报告必须包含以下全部 15 项，数据不可用时写"暂无数据"或"API错误"，不得整节省略：
+- **报告完整性检查（保存前必须逐项核对）**：报告必须包含以下全部 15 项，数据不可用时写"API错误：暂无数据"，不得整节省略：
 
   | # | 指标 | 是否必须有对应章节 |
   |---|------|-----------------|

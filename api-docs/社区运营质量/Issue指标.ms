@@ -5,7 +5,7 @@
   "groupId" : "2e2220ca1c424052ba4fa20a1e7370f8",
   "name" : "Issue指标",
   "createTime" : null,
-  "updateTime" : 1773747654481,
+  "updateTime" : 1775099526924,
   "lock" : null,
   "createBy" : null,
   "updateBy" : "admin",
@@ -13,19 +13,19 @@
   "method" : "GET",
   "parameters" : [ {
     "name" : "community",
-    "value" : "openeuler",
+    "value" : "openubmc",
     "description" : "社区名称",
     "required" : true,
     "dataType" : "String",
     "type" : null,
     "defaultValue" : null,
-    "validateType" : null,
+    "validateType" : "pattern",
     "error" : null,
-    "expression" : null,
+    "expression" : "^[a-zA-Z]{1,32}$",
     "children" : null
   }, {
     "name" : "start",
-    "value" : "1767196800000",
+    "value" : "1757196800000",
     "description" : "查询范围开始时间，格式为毫秒时间戳",
     "required" : false,
     "dataType" : "Long",
@@ -37,7 +37,7 @@
     "children" : null
   }, {
     "name" : "end",
-    "value" : "1769875200000",
+    "value" : "1779875200000",
     "description" : "查询范围结束时间，格式为毫秒时间戳",
     "required" : false,
     "dataType" : "Long",
@@ -64,7 +64,7 @@
   "requestBody" : "",
   "headers" : [ ],
   "paths" : [ ],
-  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": [{\n        \"count\": 2158,\n        \"avg_first_reply_time\": 27.72,\n        \"avg_closed_time\": 4.72,\n        \"median_first_reply_time\": 12.79,\n        \"median_closed_time\": 46.64\n    }],\n    \"timestamp\": 1773747573722,\n    \"executeTime\": 173\n}",
+  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": [{\n        \"count\": 0,\n        \"avg_first_reply_time\": null,\n        \"avg_closed_time\": null,\n        \"median_first_reply_time\": null,\n        \"median_closed_time\": null\n    }],\n    \"timestamp\": 1774577847612,\n    \"executeTime\": 248\n}",
   "description" : "统计社区Issue汇总指标（平均首次响应时间、平均闭环时间、首次响应时间中位数、闭环时间中位数）",
   "requestBodyDefinition" : null,
   "responseBodyDefinition" : {
@@ -229,10 +229,10 @@ FROM dws_${community}_contribute
 <where>
     contrib_type = 'issue' and is_hide is null and is_removed is null
     <if test="start != null and start != ''">
-        AND created_at >= (to_timestamp(#{start}/1000) AT TIME ZONE 'Asia/Shanghai')::date
+        AND created_at >= to_timestamp(#{start}/1000)
     </if>
     <if test="end != null and end != ''">
-        AND created_at <= (to_timestamp(#{end}/1000) AT TIME ZONE 'Asia/Shanghai')::date
+        AND created_at <= to_timestamp(#{end}/1000)
     </if>
     <if test="namespace != null and namespace != ''">
         and namespace LIKE CONCAT('%', #{namespace}, '%')

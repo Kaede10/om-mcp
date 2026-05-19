@@ -5,7 +5,7 @@
   "groupId" : "2e2220ca1c424052ba4fa20a1e7370f8",
   "name" : "论坛指标",
   "createTime" : null,
-  "updateTime" : 1773384245228,
+  "updateTime" : 1776224069227,
   "lock" : null,
   "createBy" : null,
   "updateBy" : "admin",
@@ -13,38 +13,38 @@
   "method" : "GET",
   "parameters" : [ {
     "name" : "community",
-    "value" : "mindie",
+    "value" : "cann",
     "description" : "社区名称",
     "required" : true,
     "dataType" : "String",
     "type" : null,
     "defaultValue" : null,
-    "validateType" : null,
-    "error" : null,
-    "expression" : null,
+    "validateType" : "pattern",
+    "error" : "community 参数格式非法",
+    "expression" : "^[a-zA-Z]{1,32}$",
     "children" : null
   }, {
     "name" : "start",
-    "value" : "1769875200000",
+    "value" : "1772294400000",
     "description" : "查询范围开始时间，格式为毫秒时间戳",
     "required" : false,
     "dataType" : "Long",
     "type" : null,
     "defaultValue" : null,
-    "validateType" : null,
-    "error" : null,
+    "validateType" : "pass",
+    "error" : "start 必须为合法的毫秒级时间戳",
     "expression" : null,
     "children" : null
   }, {
     "name" : "end",
-    "value" : "1772294400000",
+    "value" : "1774972800000",
     "description" : "查询范围结束时间，格式为毫秒时间戳",
     "required" : false,
     "dataType" : "Long",
     "type" : null,
     "defaultValue" : null,
-    "validateType" : null,
-    "error" : null,
+    "validateType" : "pass",
+    "error" : "end 必须为合法的毫秒级时间戳",
     "expression" : null,
     "children" : null
   } ],
@@ -64,7 +64,7 @@
   "requestBody" : "",
   "headers" : [ ],
   "paths" : [ ],
-  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": [{\n        \"count\": 11,\n        \"avg_first_reply_time\": 12.66,\n        \"avg_closed_time\": 34.35,\n        \"median_first_reply_time\": 0.74,\n        \"median_closed_time\": 36.07\n    }],\n    \"timestamp\": 1773367776499,\n    \"executeTime\": 5\n}",
+  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": [{\n        \"count\": 3991,\n        \"avg_first_reply_time\": 97.50,\n        \"avg_closed_time\": 271.03,\n        \"median_first_reply_time\": 0.18,\n        \"median_closed_time\": 136.36\n    }],\n    \"timestamp\": 1776224034110,\n    \"executeTime\": 13\n}",
   "description" : "统计社区论坛汇总指标（平均首次响应时间、平均闭环时间）",
   "requestBodyDefinition" : null,
   "responseBodyDefinition" : {
@@ -80,7 +80,7 @@
     "expression" : "",
     "children" : [ {
       "name" : "code",
-      "value" : "1",
+      "value" : "-1",
       "description" : "响应码",
       "required" : false,
       "dataType" : "Integer",
@@ -92,7 +92,7 @@
       "children" : [ ]
     }, {
       "name" : "message",
-      "value" : "success",
+      "value" : "系统内部出现错误",
       "description" : "响应消息",
       "required" : false,
       "dataType" : "String",
@@ -104,91 +104,19 @@
       "children" : [ ]
     }, {
       "name" : "data",
-      "value" : "",
+      "value" : "null",
       "description" : "响应数据",
       "required" : false,
-      "dataType" : "Array",
+      "dataType" : "Object",
       "type" : null,
       "defaultValue" : null,
       "validateType" : "",
       "error" : "",
       "expression" : "",
-      "children" : [ {
-        "name" : "",
-        "value" : "",
-        "description" : "",
-        "required" : false,
-        "dataType" : "Object",
-        "type" : null,
-        "defaultValue" : null,
-        "validateType" : "",
-        "error" : "",
-        "expression" : "",
-        "children" : [ {
-          "name" : "count",
-          "value" : "2600",
-          "description" : "论坛帖子总数",
-          "required" : false,
-          "dataType" : "Integer",
-          "type" : null,
-          "defaultValue" : null,
-          "validateType" : "",
-          "error" : "",
-          "expression" : "",
-          "children" : [ ]
-        }, {
-          "name" : "avg_first_reply_time",
-          "value" : "21.29",
-          "description" : "首次响应时间平均值",
-          "required" : false,
-          "dataType" : "Double",
-          "type" : null,
-          "defaultValue" : null,
-          "validateType" : "",
-          "error" : "",
-          "expression" : "",
-          "children" : [ ]
-        }, {
-          "name" : "avg_closed_time",
-          "value" : "21.29",
-          "description" : "关闭时间平均值",
-          "required" : false,
-          "dataType" : "Double",
-          "type" : null,
-          "defaultValue" : null,
-          "validateType" : "",
-          "error" : "",
-          "expression" : "",
-          "children" : [ ]
-        }, {
-          "name" : "median_first_reply_time",
-          "value" : "29.21",
-          "description" : "首次响应时间中位数",
-          "required" : false,
-          "dataType" : "Double",
-          "type" : null,
-          "defaultValue" : null,
-          "validateType" : "",
-          "error" : "",
-          "expression" : "",
-          "children" : [ ]
-        }, {
-          "name" : "median_closed_time",
-          "value" : "588.67",
-          "description" : "关闭时间中位数",
-          "required" : false,
-          "dataType" : "Double",
-          "type" : null,
-          "defaultValue" : null,
-          "validateType" : "",
-          "error" : "",
-          "expression" : "",
-          "children" : [ ]
-        } ]
-      } ]
+      "children" : [ ]
     }, {
       "name" : "timestamp",
-      "value" : "1773367432276",
+      "value" : "1776065993359",
       "description" : "",
       "required" : false,
       "dataType" : "Long",
@@ -200,7 +128,7 @@
       "children" : [ ]
     }, {
       "name" : "executeTime",
-      "value" : "7",
+      "value" : "9",
       "description" : "",
       "required" : false,
       "dataType" : "Integer",
@@ -215,7 +143,9 @@
 }
 ================================
 community = community.toLowerCase()
-
+if (community == "cannopen"){
+    community = "cann"
+}
 var sql = """
 SELECT
         count(*) as count, 
@@ -226,10 +156,10 @@ SELECT
 FROM fact_${community}_forum_topic
 <where>
     <if test="start != null and start != ''">
-        AND created_at >= (to_timestamp(#{start}/1000) AT TIME ZONE 'Asia/Shanghai')::date
+        AND created_at >= to_timestamp(#{start}/1000)
     </if>
     <if test="end != null and end != ''">
-        AND created_at <= (to_timestamp(#{end}/1000) AT TIME ZONE 'Asia/Shanghai')::date
+        AND created_at <= to_timestamp(#{end}/1000)
     </if>
 </where>     
 """
