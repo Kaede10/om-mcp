@@ -5,7 +5,7 @@
   "groupId" : "2e2220ca1c424052ba4fa20a1e7370f8",
   "name" : "有效评论数",
   "createTime" : null,
-  "updateTime" : 1773385220767,
+  "updateTime" : 1774577899459,
   "lock" : null,
   "createBy" : null,
   "updateBy" : "admin",
@@ -13,50 +13,38 @@
   "method" : "GET",
   "parameters" : [ {
     "name" : "community",
-    "value" : "openeuler",
+    "value" : "vllm",
     "description" : "社区名称",
     "required" : true,
     "dataType" : "String",
     "type" : null,
     "defaultValue" : null,
-    "validateType" : null,
-    "error" : null,
-    "expression" : null,
-    "children" : null
-  }, {
-    "name" : "interval",
-    "value" : "month",
-    "description" : "时间维度，如日、月、年",
-    "required" : true,
-    "dataType" : "String",
-    "type" : null,
-    "defaultValue" : null,
     "validateType" : "pattern",
-    "error" : null,
-    "expression" : "^(day|month|year)$",
+    "error" : "community 参数格式非法",
+    "expression" : "^[a-zA-Z]{1,32}$",
     "children" : null
   }, {
     "name" : "start",
-    "value" : "1755689600000",
+    "value" : "1762553600000",
     "description" : "查询范围开始时间,格式为毫秒时间戳",
     "required" : false,
     "dataType" : "Long",
     "type" : null,
     "defaultValue" : null,
-    "validateType" : null,
-    "error" : null,
+    "validateType" : "pass",
+    "error" : "start 必须为合法的毫秒级时间戳",
     "expression" : null,
     "children" : null
   }, {
     "name" : "end",
-    "value" : "1795689600000",
+    "value" : "1772553600000",
     "description" : "查询范围结束时间,格式为毫秒时间戳",
     "required" : false,
     "dataType" : "Long",
     "type" : null,
     "defaultValue" : null,
-    "validateType" : null,
-    "error" : null,
+    "validateType" : "pass",
+    "error" : "end 必须为合法的毫秒级时间戳",
     "expression" : null,
     "children" : null
   }, {
@@ -68,16 +56,16 @@
     "type" : null,
     "defaultValue" : null,
     "validateType" : "pattern",
-    "error" : null,
-    "expression" : "^(pr|issue)$",
+    "error" : "contrib_type 只能为 pr 或 issue",
+    "expression" : "^(pr|issue)?$",
     "children" : null
   } ],
   "options" : [ ],
   "requestBody" : "",
   "headers" : [ ],
   "paths" : [ ],
-  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": [{\n        \"stats_date\": \"2025-08-01\",\n        \"comments\": 874,\n        \"avg_comments\": 2\n    }, {\n        \"stats_date\": \"2025-09-01\",\n        \"comments\": 2174,\n        \"avg_comments\": 2\n    }, {\n        \"stats_date\": \"2025-10-01\",\n        \"comments\": 1138,\n        \"avg_comments\": 2\n    }, {\n        \"stats_date\": \"2025-11-01\",\n        \"comments\": 1322,\n        \"avg_comments\": 2\n    }, {\n        \"stats_date\": \"2025-12-01\",\n        \"comments\": 2676,\n        \"avg_comments\": 2\n    }, {\n        \"stats_date\": \"2026-01-01\",\n        \"comments\": 1603,\n        \"avg_comments\": 2\n    }, {\n        \"stats_date\": \"2026-02-01\",\n        \"comments\": 1163,\n        \"avg_comments\": 2\n    }, {\n        \"stats_date\": \"2026-03-01\",\n        \"comments\": 820,\n        \"avg_comments\": 2\n    }],\n    \"timestamp\": 1773385014617,\n    \"executeTime\": 191\n}",
-  "description" : "查询指定社区的日/月/年度的有效评论/review数量，排除机器人发出的评论和命令型评论，适合：趋势分析、历史对比、汇总某年/某月数据。",
+  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": {\n        \"comments\": 451,\n        \"avg_comments\": 3\n    },\n    \"timestamp\": 1774516123009,\n    \"executeTime\": 12\n}",
+  "description" : "查询指定社区指定时间范围内的有效评论/review数量汇总，排除机器人发出的评论和命令型评论。\n不传时间范围时返回全量总计。\n适合：汇总统计、总体评估。",
   "requestBodyDefinition" : null,
   "responseBodyDefinition" : {
     "name" : "",
@@ -119,48 +107,36 @@
       "value" : "",
       "description" : "",
       "required" : false,
-      "dataType" : "Array",
+      "dataType" : "Object",
       "type" : null,
       "defaultValue" : null,
       "validateType" : "",
       "error" : "",
       "expression" : "",
       "children" : [ {
-        "name" : "",
-        "value" : "",
+        "name" : "comments",
+        "value" : "7406",
         "description" : "",
         "required" : false,
-        "dataType" : "Object",
+        "dataType" : "Integer",
         "type" : null,
         "defaultValue" : null,
         "validateType" : "",
         "error" : "",
         "expression" : "",
-        "children" : [ {
-          "name" : "month_date",
-          "value" : "2025-01-01",
-          "description" : "",
-          "required" : false,
-          "dataType" : "String",
-          "type" : null,
-          "defaultValue" : null,
-          "validateType" : "",
-          "error" : "",
-          "expression" : "",
-          "children" : [ ]
-        }, {
-          "name" : "comments",
-          "value" : "7406",
-          "description" : "",
-          "required" : false,
-          "dataType" : "Integer",
-          "type" : null,
-          "defaultValue" : null,
-          "validateType" : "",
-          "error" : "",
-          "expression" : "",
-          "children" : [ ]
-        } ]
+        "children" : [ ]
+      }, {
+        "name" : "avg_comments",
+        "value" : "3",
+        "description" : "",
+        "required" : false,
+        "dataType" : "Integer",
+        "type" : null,
+        "defaultValue" : null,
+        "validateType" : "",
+        "error" : "",
+        "expression" : "",
+        "children" : [ ]
       } ]
     }, {
       "name" : "timestamp",
@@ -191,25 +167,20 @@
 }
 ================================
 community = community.toLowerCase()
-
 var sql = """
-SELECT date_trunc('${interval}', created_at)::date as stats_date, 
-    COUNT(*) AS comments,
-    (COUNT(*) / COUNT(DISTINCT html_url)) AS avg_comments
+SELECT COUNT(*) AS comments,
+    COALESCE(COUNT(*) / NULLIF(COUNT(DISTINCT html_url), 0), 0) AS avg_comments
 FROM dwm_${community}_user_interaction 
 WHERE company <> 'robot'
     <if test="start != null and start != ''">
-        AND created_at >= (to_timestamp(#{start}/1000) AT TIME ZONE 'Asia/Shanghai')::date
+        AND created_at >= to_timestamp(#{start}/1000)
     </if>
     <if test="end != null and end != ''">
-        AND created_at <= (to_timestamp(#{end}/1000) AT TIME ZONE 'Asia/Shanghai')::date
+        AND created_at <= to_timestamp(#{end}/1000)
     </if>
     <if test="contrib_type != null and contrib_type != ''">
         AND contrib_type = #{contrib_type}
     </if>
-GROUP BY date_trunc('${interval}', created_at)
-ORDER BY date_trunc('${interval}', created_at) asc;
 """
-
-var resp = db.select(sql)
+var resp = db.selectOne(sql)
 return resp

@@ -5,7 +5,7 @@
   "groupId" : "39c33765c93e4af089275fbe9ae18d07",
   "name" : "issue汇总分页",
   "createTime" : null,
-  "updateTime" : 1773385623154,
+  "updateTime" : 1774661251753,
   "lock" : null,
   "createBy" : null,
   "updateBy" : "admin",
@@ -25,10 +25,10 @@
     "expression" : null,
     "children" : null
   } ],
-  "requestBody" : "{\r\n    \"start\":1769875200000,\r\n    \"end\":1772294400000,\r\n    \"pageNum\": 1,\r\n    \"pageSize\": 2,\r\n    \"group_dim\": \"\",\r\n    \"community\":\"mindie\",\r\n    \"issue_type\": \"\",\r\n    \"issue_type_list\": [],\r\n    \"namespace\":\"\",\r\n    \"repo_path\":\"\",\r\n    \"source\": \"\",\r\n    \"internalList\": [],\r\n    \"private\": \"false\",\r\n    \"asc\":\"one_day_response_ratio\",\r\n    \"desc\":\"\"\r\n}",
+  "requestBody" : "{\r\n    \"start\":1769875200000,\r\n    \"end\":1772294400000,\r\n    \"pageNum\": 1,\r\n    \"pageSize\": 2,\r\n    \"group_dim\": \"\",\r\n    \"community\":\"mindall\",\r\n    \"issue_type\": \"\",\r\n    \"issue_type_list\": [],\r\n    \"namespace\":\"\",\r\n    \"repo_path\":\"\",\r\n    \"source\": \"\",\r\n    \"internalList\": [],\r\n    \"private\": \"false\",\r\n    \"asc\":\"\",\r\n    \"desc\":\"\"\r\n}",
   "headers" : [ ],
   "paths" : [ ],
-  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": {\n        \"total_count\": 1,\n        \"total_page\": 1,\n        \"list\": [{\n            \"count\": 88,\n            \"open_count\": 35,\n            \"unresponse_open_count\": 8,\n            \"closed_count\": 32,\n            \"unclosed_count\": 35,\n            \"closed_ratio\": 0.6023,\n            \"avg_first_reply_time\": 13.80,\n            \"avg_closed_time\": 21.62,\n            \"avg_overdue_first_reply_time\": 12.94,\n            \"avg_overdue_closed_time\": 12.77,\n            \"eight_hour_response_ratio\": 0.11,\n            \"one_day_response_ratio\": 0.19,\n            \"five_day_closed_ratio\": 0.05,\n            \"seven_day_closed_ratio\": 0.05,\n            \"comment_num\": 0.48,\n            \"week_new_count\": 10,\n            \"median_first_reply_time\": 14.90,\n            \"median_closed_time\": 5.79\n        }],\n        \"page_size\": 2\n    },\n    \"timestamp\": 1773385578243,\n    \"executeTime\": 129\n}",
+  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": {\n        \"total_count\": 10,\n        \"total_page\": 5,\n        \"list\": [{\n            \"sub_community\": \"ascendnpuir\",\n            \"issue_type\": \"All\",\n            \"count\": 53,\n            \"open_count\": 33,\n            \"week_new_count\": 9,\n            \"unresponse_open_count\": 7,\n            \"closed_count\": 40,\n            \"unclosed_count\": 33,\n            \"closed_ratio\": 0.3774,\n            \"avg_first_reply_time\": 6.34,\n            \"median_first_reply_time\": 0.40,\n            \"median_closed_time\": 23.20,\n            \"avg_closed_time\": 26.68,\n            \"avg_overdue_first_reply_time\": 5.55,\n            \"avg_overdue_closed_time\": 16.00,\n            \"one_day_response_ratio\": 0.40,\n            \"eight_hour_response_ratio\": 0.19,\n            \"five_day_closed_ratio\": 0.08,\n            \"seven_day_closed_ratio\": 0.09,\n            \"comment_num\": 1.43\n        }, {\n            \"sub_community\": \"mindcluster\",\n            \"issue_type\": \"All\",\n            \"count\": 77,\n            \"open_count\": 36,\n            \"week_new_count\": 4,\n            \"unresponse_open_count\": 1,\n            \"closed_count\": 43,\n            \"unclosed_count\": 36,\n            \"closed_ratio\": 0.5325,\n            \"avg_first_reply_time\": 9.21,\n            \"median_first_reply_time\": 0.04,\n            \"median_closed_time\": 11.11,\n            \"avg_closed_time\": 21.80,\n            \"avg_overdue_first_reply_time\": 8.49,\n            \"avg_overdue_closed_time\": 4.07,\n            \"one_day_response_ratio\": 0.52,\n            \"eight_hour_response_ratio\": 0.25,\n            \"five_day_closed_ratio\": 0.22,\n            \"seven_day_closed_ratio\": 0.26,\n            \"comment_num\": 1.10\n        }],\n        \"page_size\": 2\n    },\n    \"timestamp\": 1773647929301,\n    \"executeTime\": 22\n}",
   "description" : "issue贡献汇总信息分页查询接口（支持全社区/子社区/仓库维度）返回指标：issue总数、开启issue总数、本周新增issue总数、未响应issue总数、未关闭issue总数、关闭率、平均首次响应时间（天）、平均关闭时间（天）、平均首次响应超时时间（天）、平均关闭超时时间（天）、24小时响应率、8小时响应率、5天内关闭率、7天内关闭率、评论互动数量",
   "requestBodyDefinition" : {
     "name" : "",
@@ -49,9 +49,9 @@
       "dataType" : "Long",
       "type" : null,
       "defaultValue" : null,
-      "validateType" : "",
-      "error" : "",
-      "expression" : "",
+      "validateType" : "expression",
+      "error" : "start 必须为合法的毫秒级时间戳",
+      "expression" : null,
       "children" : [ ]
     }, {
       "name" : "end",
@@ -61,9 +61,9 @@
       "dataType" : "Long",
       "type" : null,
       "defaultValue" : null,
-      "validateType" : "",
-      "error" : "",
-      "expression" : "",
+      "validateType" : "expression",
+      "error" : "end 必须为合法的毫秒级时间戳",
+      "expression" : null,
       "children" : [ ]
     }, {
       "name" : "pageNum",
@@ -73,9 +73,9 @@
       "dataType" : "Integer",
       "type" : null,
       "defaultValue" : null,
-      "validateType" : "",
-      "error" : "",
-      "expression" : "",
+      "validateType" : "expression",
+      "error" : "pageNum 必须为正整数且不超过1000",
+      "expression" : "pageNum > 0 && pageNum <= 1000",
       "children" : [ ]
     }, {
       "name" : "pageSize",
@@ -85,9 +85,9 @@
       "dataType" : "Integer",
       "type" : null,
       "defaultValue" : null,
-      "validateType" : "",
-      "error" : "",
-      "expression" : "",
+      "validateType" : "expression",
+      "error" : "pageSize 必须为正整数且不超过100000",
+      "expression" : "pageSize > 0 && pageSize <= 100000",
       "children" : [ ]
     }, {
       "name" : "group_dim",
@@ -97,9 +97,9 @@
       "dataType" : "String",
       "type" : null,
       "defaultValue" : null,
-      "validateType" : "",
-      "error" : "",
-      "expression" : "",
+      "validateType" : "pattern",
+      "error" : "group_dim 只能为 sub_community 或 repo",
+      "expression" : "^(sub_community|repo)?$",
       "children" : [ ]
     }, {
       "name" : "community",
@@ -109,9 +109,9 @@
       "dataType" : "String",
       "type" : null,
       "defaultValue" : null,
-      "validateType" : "",
-      "error" : "",
-      "expression" : "",
+      "validateType" : "pattern",
+      "error" : "community 参数格式非法",
+      "expression" : "^[a-zA-Z]{1,32}$",
       "children" : [ ]
     }, {
       "name" : "issue_type",
@@ -121,9 +121,9 @@
       "dataType" : "String",
       "type" : null,
       "defaultValue" : null,
-      "validateType" : "",
-      "error" : "",
-      "expression" : "",
+      "validateType" : "pattern",
+      "error" : "issue_type 格式非法",
+      "expression" : "^[a-zA-Z0-9_\\u4e00-\\u9fa5]*$",
       "children" : [ ]
     }, {
       "name" : "issue_type_list",
@@ -145,9 +145,9 @@
       "dataType" : "String",
       "type" : null,
       "defaultValue" : null,
-      "validateType" : "",
-      "error" : "",
-      "expression" : "",
+      "validateType" : "pattern",
+      "error" : "namespace 格式非法",
+      "expression" : "^[a-zA-Z0-9_\\-]*$",
       "children" : [ ]
     }, {
       "name" : "repo_path",
@@ -157,9 +157,9 @@
       "dataType" : "String",
       "type" : null,
       "defaultValue" : null,
-      "validateType" : "",
-      "error" : "",
-      "expression" : "",
+      "validateType" : "pattern",
+      "error" : "repo_path 格式非法",
+      "expression" : "^[a-zA-Z0-9_\\-/.]*$",
       "children" : [ ]
     }, {
       "name" : "source",
@@ -169,9 +169,9 @@
       "dataType" : "String",
       "type" : null,
       "defaultValue" : null,
-      "validateType" : "",
-      "error" : "",
-      "expression" : "",
+      "validateType" : "pattern",
+      "error" : "source 格式非法",
+      "expression" : "^[a-zA-Z0-9_]*$",
       "children" : [ ]
     }, {
       "name" : "internalList",
@@ -193,9 +193,9 @@
       "dataType" : "String",
       "type" : null,
       "defaultValue" : null,
-      "validateType" : "",
-      "error" : "",
-      "expression" : "",
+      "validateType" : "pattern",
+      "error" : "private 只能为 true 或 false",
+      "expression" : "^(true|false)?$",
       "children" : [ ]
     }, {
       "name" : "asc",
@@ -205,9 +205,9 @@
       "dataType" : "String",
       "type" : null,
       "defaultValue" : null,
-      "validateType" : "",
-      "error" : "",
-      "expression" : "",
+      "validateType" : "pattern",
+      "error" : "asc 字段非法",
+      "expression" : "^(count|open_count|unresponse_open_count|closed_count|unclosed_count|closed_ratio|avg_first_reply_time|median_first_reply_time|avg_closed_time|median_closed_time|avg_overdue_first_reply_time|avg_overdue_closed_time|eight_hour_response_ratio|one_day_response_ratio|five_day_closed_ratio|seven_day_closed_ratio|comment_num|week_new_count)?$",
       "children" : [ ]
     }, {
       "name" : "desc",
@@ -217,9 +217,9 @@
       "dataType" : "String",
       "type" : null,
       "defaultValue" : null,
-      "validateType" : "",
-      "error" : "",
-      "expression" : "",
+      "validateType" : "pattern",
+      "error" : "desc 字段非法",
+      "expression" : "^(count|open_count|unresponse_open_count|closed_count|unclosed_count|closed_ratio|avg_first_reply_time|median_first_reply_time|avg_closed_time|median_closed_time|avg_overdue_first_reply_time|avg_overdue_closed_time|eight_hour_response_ratio|one_day_response_ratio|five_day_closed_ratio|seven_day_closed_ratio|comment_num|week_new_count)?$",
       "children" : [ ]
     } ]
   },
@@ -271,7 +271,7 @@
       "expression" : "",
       "children" : [ {
         "name" : "total_count",
-        "value" : "1",
+        "value" : "10",
         "description" : "数据总数",
         "required" : false,
         "dataType" : "Integer",
@@ -283,7 +283,7 @@
         "children" : [ ]
       }, {
         "name" : "total_page",
-        "value" : "1",
+        "value" : "5",
         "description" : "数据总页数",
         "required" : false,
         "dataType" : "Integer",
@@ -316,8 +316,32 @@
           "error" : "",
           "expression" : "",
           "children" : [ {
+            "name" : "sub_community",
+            "value" : "ascendnpuir",
+            "description" : "",
+            "required" : false,
+            "dataType" : "String",
+            "type" : null,
+            "defaultValue" : null,
+            "validateType" : "",
+            "error" : "",
+            "expression" : "",
+            "children" : [ ]
+          }, {
+            "name" : "issue_type",
+            "value" : "All",
+            "description" : "",
+            "required" : false,
+            "dataType" : "String",
+            "type" : null,
+            "defaultValue" : null,
+            "validateType" : "",
+            "error" : "",
+            "expression" : "",
+            "children" : [ ]
+          }, {
             "name" : "count",
-            "value" : "88",
+            "value" : "53",
             "description" : "issue总数",
             "required" : false,
             "dataType" : "Integer",
@@ -329,7 +353,7 @@
             "children" : [ ]
           }, {
             "name" : "open_count",
-            "value" : "35",
+            "value" : "33",
             "description" : "开启issue总数",
             "required" : false,
             "dataType" : "Integer",
@@ -340,8 +364,20 @@
             "expression" : "",
             "children" : [ ]
           }, {
+            "name" : "week_new_count",
+            "value" : "9",
+            "description" : "本周新增issue数",
+            "required" : false,
+            "dataType" : "Integer",
+            "type" : null,
+            "defaultValue" : null,
+            "validateType" : "",
+            "error" : "",
+            "expression" : "",
+            "children" : [ ]
+          }, {
             "name" : "unresponse_open_count",
-            "value" : "8",
+            "value" : "7",
             "description" : "未响应issue总数",
             "required" : false,
             "dataType" : "Integer",
@@ -353,7 +389,7 @@
             "children" : [ ]
           }, {
             "name" : "closed_count",
-            "value" : "32",
+            "value" : "40",
             "description" : "关闭issue总数",
             "required" : false,
             "dataType" : "Integer",
@@ -365,7 +401,7 @@
             "children" : [ ]
           }, {
             "name" : "unclosed_count",
-            "value" : "35",
+            "value" : "33",
             "description" : "未关闭issue总数",
             "required" : false,
             "dataType" : "Integer",
@@ -377,7 +413,7 @@
             "children" : [ ]
           }, {
             "name" : "closed_ratio",
-            "value" : "0.6023",
+            "value" : "0.3774",
             "description" : "关闭率",
             "required" : false,
             "dataType" : "Double",
@@ -389,7 +425,7 @@
             "children" : [ ]
           }, {
             "name" : "avg_first_reply_time",
-            "value" : "13.80",
+            "value" : "6.34",
             "description" : "平均首次响应时间，单位天",
             "required" : false,
             "dataType" : "Double",
@@ -400,116 +436,8 @@
             "expression" : "",
             "children" : [ ]
           }, {
-            "name" : "avg_closed_time",
-            "value" : "21.62",
-            "description" : "平均关闭时间，单位天",
-            "required" : false,
-            "dataType" : "Double",
-            "type" : null,
-            "defaultValue" : null,
-            "validateType" : "",
-            "error" : "",
-            "expression" : "",
-            "children" : [ ]
-          }, {
-            "name" : "avg_overdue_first_reply_time",
-            "value" : "12.94",
-            "description" : "平均首次响应超时时间，单位天",
-            "required" : false,
-            "dataType" : "Double",
-            "type" : null,
-            "defaultValue" : null,
-            "validateType" : "",
-            "error" : "",
-            "expression" : "",
-            "children" : [ ]
-          }, {
-            "name" : "avg_overdue_closed_time",
-            "value" : "12.77",
-            "description" : "平均关闭超时时间，单位天",
-            "required" : false,
-            "dataType" : "Double",
-            "type" : null,
-            "defaultValue" : null,
-            "validateType" : "",
-            "error" : "",
-            "expression" : "",
-            "children" : [ ]
-          }, {
-            "name" : "eight_hour_response_ratio",
-            "value" : "0.11",
-            "description" : "8小时响应率",
-            "required" : false,
-            "dataType" : "Double",
-            "type" : null,
-            "defaultValue" : null,
-            "validateType" : "",
-            "error" : "",
-            "expression" : "",
-            "children" : [ ]
-          }, {
-            "name" : "one_day_response_ratio",
-            "value" : "0.19",
-            "description" : "24小时响应率",
-            "required" : false,
-            "dataType" : "Double",
-            "type" : null,
-            "defaultValue" : null,
-            "validateType" : "",
-            "error" : "",
-            "expression" : "",
-            "children" : [ ]
-          }, {
-            "name" : "five_day_closed_ratio",
-            "value" : "0.05",
-            "description" : "5天内关闭率",
-            "required" : false,
-            "dataType" : "Double",
-            "type" : null,
-            "defaultValue" : null,
-            "validateType" : "",
-            "error" : "",
-            "expression" : "",
-            "children" : [ ]
-          }, {
-            "name" : "seven_day_closed_ratio",
-            "value" : "0.05",
-            "description" : "7天内关闭率",
-            "required" : false,
-            "dataType" : "Double",
-            "type" : null,
-            "defaultValue" : null,
-            "validateType" : "",
-            "error" : "",
-            "expression" : "",
-            "children" : [ ]
-          }, {
-            "name" : "comment_num",
-            "value" : "0.48",
-            "description" : "评论互动数量",
-            "required" : false,
-            "dataType" : "Double",
-            "type" : null,
-            "defaultValue" : null,
-            "validateType" : "",
-            "error" : "",
-            "expression" : "",
-            "children" : [ ]
-          }, {
-            "name" : "week_new_count",
-            "value" : "10",
-            "description" : "本周新增issue数",
-            "required" : false,
-            "dataType" : "Integer",
-            "type" : null,
-            "defaultValue" : null,
-            "validateType" : "",
-            "error" : "",
-            "expression" : "",
-            "children" : [ ]
-          }, {
             "name" : "median_first_reply_time",
-            "value" : "14.90",
+            "value" : "0.40",
             "description" : "首次响应时间中位数，单位天",
             "required" : false,
             "dataType" : "Double",
@@ -521,8 +449,104 @@
             "children" : [ ]
           }, {
             "name" : "median_closed_time",
-            "value" : "5.79",
+            "value" : "23.20",
             "description" : "关闭时间中位数，单位天",
+            "required" : false,
+            "dataType" : "Double",
+            "type" : null,
+            "defaultValue" : null,
+            "validateType" : "",
+            "error" : "",
+            "expression" : "",
+            "children" : [ ]
+          }, {
+            "name" : "avg_closed_time",
+            "value" : "26.68",
+            "description" : "平均关闭时间，单位天",
+            "required" : false,
+            "dataType" : "Double",
+            "type" : null,
+            "defaultValue" : null,
+            "validateType" : "",
+            "error" : "",
+            "expression" : "",
+            "children" : [ ]
+          }, {
+            "name" : "avg_overdue_first_reply_time",
+            "value" : "5.55",
+            "description" : "平均首次响应超时时间，单位天",
+            "required" : false,
+            "dataType" : "Double",
+            "type" : null,
+            "defaultValue" : null,
+            "validateType" : "",
+            "error" : "",
+            "expression" : "",
+            "children" : [ ]
+          }, {
+            "name" : "avg_overdue_closed_time",
+            "value" : "16.00",
+            "description" : "平均关闭超时时间，单位天",
+            "required" : false,
+            "dataType" : "Double",
+            "type" : null,
+            "defaultValue" : null,
+            "validateType" : "",
+            "error" : "",
+            "expression" : "",
+            "children" : [ ]
+          }, {
+            "name" : "one_day_response_ratio",
+            "value" : "0.40",
+            "description" : "24小时响应率",
+            "required" : false,
+            "dataType" : "Double",
+            "type" : null,
+            "defaultValue" : null,
+            "validateType" : "",
+            "error" : "",
+            "expression" : "",
+            "children" : [ ]
+          }, {
+            "name" : "eight_hour_response_ratio",
+            "value" : "0.19",
+            "description" : "8小时响应率",
+            "required" : false,
+            "dataType" : "Double",
+            "type" : null,
+            "defaultValue" : null,
+            "validateType" : "",
+            "error" : "",
+            "expression" : "",
+            "children" : [ ]
+          }, {
+            "name" : "five_day_closed_ratio",
+            "value" : "0.08",
+            "description" : "5天内关闭率",
+            "required" : false,
+            "dataType" : "Double",
+            "type" : null,
+            "defaultValue" : null,
+            "validateType" : "",
+            "error" : "",
+            "expression" : "",
+            "children" : [ ]
+          }, {
+            "name" : "seven_day_closed_ratio",
+            "value" : "0.09",
+            "description" : "7天内关闭率",
+            "required" : false,
+            "dataType" : "Double",
+            "type" : null,
+            "defaultValue" : null,
+            "validateType" : "",
+            "error" : "",
+            "expression" : "",
+            "children" : [ ]
+          }, {
+            "name" : "comment_num",
+            "value" : "1.43",
+            "description" : "评论互动数量",
             "required" : false,
             "dataType" : "Double",
             "type" : null,
@@ -548,7 +572,7 @@
       } ]
     }, {
       "name" : "timestamp",
-      "value" : "1773385578243",
+      "value" : "1773647427363",
       "description" : "响应时间戳",
       "required" : false,
       "dataType" : "Long",
@@ -560,7 +584,7 @@
       "children" : [ ]
     }, {
       "name" : "executeTime",
-      "value" : "129",
+      "value" : "10",
       "description" : "",
       "required" : false,
       "dataType" : "Integer",
@@ -630,7 +654,6 @@ if (body.pageSize != null and body.pageSize != ""){
 if (body.page_size != null and body.page_size != ""){
     page_size = body.page_size;
 }
-
 var offset = (page_num - 1) * page_size
 var order_by_set = new HashSet()
 var order_asc = "";
@@ -651,17 +674,14 @@ if (body.desc != null and body.desc != "") {
         }
     }
 }
-
 var order_by = "";
 if (order_by_set.size() > 0){
     order_by = order_by_set.join(",");
 }
-
 var contributeTable = "dws_" + community + "_issue_contribute_repo_daily";
 var contributeTable_ori = "dws_" + community + "_contribute";
 var repoTable = "fact_" + community + "_repo";
 var communityTable = "fact_community_structure";
-
 var sql = """
 WITH last_week_data AS (
     SELECT
@@ -806,55 +826,13 @@ contribute_data AS (
             </foreach>
         </if>
     </where>
-),
-median_data as (
-    SELECT
-        ROUND((PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY COALESCE(first_reply_time, 0)) / 86400.0)::NUMERIC, 2) as median_first_reply_time,
-        ROUND((PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY COALESCE(closed_time, 0)) / 86400.0)::NUMERIC, 2) as median_closed_time
-    FROM ${contributeTable_ori}
-    <where>
-        contrib_type = 'issue' and is_hide is null and is_removed is null
-        <if test="start != null ">
-            and created_at::date >= #{start}
-        </if>
-        <if test="end != null ">
-            and created_at::date <= #{end}
-        </if>
-        <if test="namespace != null and namespace != ''">
-            and namespace LIKE CONCAT('%', #{namespace}, '%')
-        </if>
-        <if test="repo_path != null and repo_path != ''">
-            and repo_path LIKE CONCAT('%', #{repo_path}, '%')
-        </if>
-        <if test="issue_type != null and issue_type != ''">
-            and super_issue_type = #{issue_type}
-        </if>
-        <if test="issueTypeList != null and issueTypeList.size() > 0">
-            and super_issue_type in
-            <foreach collection="issueTypeList" item="item" open="(" separator="," close=")">
-                #{item}
-            </foreach>
-        </if>
-        <if test="source != null and source != ''">
-            and source = #{source}
-        </if>
-        <if test="private != null and private != ''">
-            and private = #{private}
-        </if>
-        <if test="internalList != null and internalList.size() > 0">
-            and internal in
-            <foreach collection="internalList" item="item" open="(" separator="," close=")">
-                #{item}
-            </foreach>
-        </if>
-    </where>
 )
 SELECT 
-    *, 
+    *, 0 as median_first_reply_time, 0 as median_closed_time,
     (select count(1) from contribute_data) as total_count, 
     CEIL((select count(1) from contribute_data)::numeric/#{page_size}) as total_page
 FROM 
-    contribute_data, last_week_data, median_data
+    contribute_data, last_week_data
 <if test="order_by != null and order_by != ''">
     ORDER BY ${order_by}
 </if>

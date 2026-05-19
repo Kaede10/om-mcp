@@ -5,7 +5,7 @@
   "groupId" : "2e2220ca1c424052ba4fa20a1e7370f8",
   "name" : "YTD下载量",
   "createTime" : null,
-  "updateTime" : 1773367013284,
+  "updateTime" : 1774577741108,
   "lock" : null,
   "createBy" : null,
   "updateBy" : "admin",
@@ -13,9 +13,46 @@
   "method" : "GET",
   "parameters" : [ {
     "name" : "community",
-    "value" : "mindie",
+    "value" : "openubmc",
     "description" : "社区名称",
     "required" : true,
+    "dataType" : "String",
+    "type" : null,
+    "defaultValue" : null,
+    "validateType" : "pattern",
+    "error" : "community 参数格式非法",
+    "expression" : "^[a-zA-Z]{1,32}$",
+    "children" : null
+  }, {
+    "name" : "start",
+    "value" : "",
+    "description" : "查询范围开始时间,格式为毫秒时间戳",
+    "required" : false,
+    "dataType" : "Long",
+    "type" : null,
+    "defaultValue" : null,
+    "validateType" : "pass",
+    "error" : "start 必须为合法的毫秒级时间戳",
+    "expression" : null,
+    "children" : null
+  }, {
+    "name" : "end",
+    "value" : "",
+    "description" : "查询范围结束时间,格式为毫秒时间戳",
+    "required" : false,
+    "dataType" : "Long",
+    "type" : null,
+    "defaultValue" : null,
+    "validateType" : "pass",
+    "error" : "end 必须为合法的毫秒级时间戳",
+    "expression" : null,
+    "children" : null
+  } ],
+  "options" : [ {
+    "name" : "wrap_request_parameter",
+    "value" : "disable-cache",
+    "description" : "包装请求参数到一个变量中",
+    "required" : false,
     "dataType" : "String",
     "type" : null,
     "defaultValue" : null,
@@ -23,25 +60,12 @@
     "error" : null,
     "expression" : null,
     "children" : null
-  }, {
-    "name" : "date",
-    "value" : "1795689600000",
-    "description" : "查询时间,格式为毫秒时间戳",
-    "required" : false,
-    "dataType" : "Long",
-    "type" : null,
-    "defaultValue" : "date > 0 && date <= 9999999999999",
-    "validateType" : "expression",
-    "error" : null,
-    "expression" : null,
-    "children" : null
   } ],
-  "options" : [ ],
   "requestBody" : "",
   "headers" : [ ],
   "paths" : [ ],
-  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": {\n        \"download\": 63.2693000000000000\n    },\n    \"timestamp\": 1773365967222,\n    \"executeTime\": 7\n}",
-  "description" : "根据输入的时间，返回从该时间所在年份的1月1日起至该时间点为止的下载总量。用于评估开源社区质量运营。",
+  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": {\n        \"download\": 1.02480000000000000000,\n        \"stats_date\": \"2026-02-28 23:59:59\"\n    },\n    \"timestamp\": 1774577720645,\n    \"executeTime\": 3\n}",
+  "description" : "查询指定社区指定时间范围内的下载总量汇总。\n不传时间范围时返回全量总计。\n适合：汇总统计、总体评估。",
   "requestBodyDefinition" : null,
   "responseBodyDefinition" : {
     "name" : "",
@@ -83,48 +107,24 @@
       "value" : "",
       "description" : "",
       "required" : false,
-      "dataType" : "Array",
+      "dataType" : "Object",
       "type" : null,
       "defaultValue" : null,
       "validateType" : "",
       "error" : "",
       "expression" : "",
       "children" : [ {
-        "name" : "",
-        "value" : "",
+        "name" : "download",
+        "value" : "1.0248",
         "description" : "",
         "required" : false,
-        "dataType" : "Object",
+        "dataType" : "Double",
         "type" : null,
         "defaultValue" : null,
         "validateType" : "",
         "error" : "",
         "expression" : "",
-        "children" : [ {
-          "name" : "month_date",
-          "value" : "2025-01-01",
-          "description" : "",
-          "required" : false,
-          "dataType" : "String",
-          "type" : null,
-          "defaultValue" : null,
-          "validateType" : "",
-          "error" : "",
-          "expression" : "",
-          "children" : [ ]
-        }, {
-          "name" : "count",
-          "value" : "305",
-          "description" : "",
-          "required" : false,
-          "dataType" : "Integer",
-          "type" : null,
-          "defaultValue" : null,
-          "validateType" : "",
-          "error" : "",
-          "expression" : "",
-          "children" : [ ]
-        } ]
+        "children" : [ ]
       } ]
     }, {
       "name" : "timestamp",
@@ -155,13 +155,16 @@
 }
 ================================
 community = community.toLowerCase()
-
 var sql = """
-SELECT COALESCE(SUM(download_day_increase), 0)/10000.0 AS download 
-FROM dws_${community}_download_daily dodd 
-WHERE created_at >= DATE_TRUNC('year', (to_timestamp(#{date}/1000) AT TIME ZONE 'Asia/Shanghai')::DATE)
-  AND created_at <= (to_timestamp(#{date}/1000) AT TIME ZONE 'Asia/Shanghai')::DATE;
+SELECT COALESCE(SUM(download_day_increase), 0)/10000.0 AS download
+FROM dws_${community}_download_daily
+WHERE 1 = 1
+    <if test="start != null and start != ''">
+        AND created_at >= to_timestamp(#{start}/1000)
+    </if>
+    <if test="end != null and end != ''">
+        AND created_at <= to_timestamp(#{end}/1000)
+    </if>
 """
-
-var resp = db.select(sql)
-return resp[0]
+var resp = db.selectOne(sql)
+return resp

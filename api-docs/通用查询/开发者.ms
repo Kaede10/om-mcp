@@ -83,10 +83,9 @@
         "required" : false,
         "dataType" : "String",
         "type" : null,
-        "defaultValue" : null,
-        "validateType" : "",
-        "error" : "",
-        "expression" : "",
+        "validateType" : "pattern",
+        "error" : "orgList 中的值格式非法",
+        "expression" : "^[a-zA-Z0-9_\\-]*$",
         "children" : [ ]
       } ]
     }, {
@@ -97,14 +96,14 @@
       "dataType" : "String",
       "type" : null,
       "defaultValue" : null,
-      "validateType" : "",
-      "error" : "",
-      "expression" : "",
+      "validateType" : "pattern",
+      "error" : "community 参数格式非法",
+      "expression" : "^[a-zA-Z]{1,32}$",
       "children" : [ ]
     }, {
       "name" : "eventList",
       "value" : "",
-      "description" : "贡献类型 sql里没有使用是否删除？？",
+      "description" : "贡献类型",
       "required" : false,
       "dataType" : "Array",
       "type" : null,
@@ -119,23 +118,22 @@
         "required" : false,
         "dataType" : "String",
         "type" : null,
-        "defaultValue" : null,
-        "validateType" : "",
-        "error" : "",
-        "expression" : "",
+        "validateType" : "pattern",
+        "error" : "eventList 中的值只能为 pr、issue 或 comment",
+        "expression" : "^(pr|issue|comment)?$",
         "children" : [ ]
       } ]
     }, {
       "name" : "interval",
       "value" : "week",
-      "description" : "没有使用是否删除？？",
+      "description" : "",
       "required" : false,
       "dataType" : "String",
       "type" : null,
       "defaultValue" : null,
-      "validateType" : "",
-      "error" : "",
-      "expression" : "",
+      "validateType" : "pattern",
+      "error" : "interval 只能为 day、week 或 month",
+      "expression" : "^(day|week|month)?$",
       "children" : [ ]
     }, {
       "name" : "metric",
@@ -145,9 +143,9 @@
       "dataType" : "String",
       "type" : null,
       "defaultValue" : null,
-      "validateType" : "",
-      "error" : "",
-      "expression" : "",
+      "validateType" : "pattern",
+      "error" : "metric 只能为 repo、company 或 sig",
+      "expression" : "^(repo|company|sig)?$",
       "children" : [ ]
     } ]
   },
@@ -273,6 +271,7 @@
     } ]
   }
 }
+
 ================================
 // 组织
 var orgList = body.orgList;
@@ -400,17 +399,13 @@ filter_table AS (
     from filter_table
     where d0_time BETWEEN (SELECT start_time FROM date_params) AND (SELECT end_time FROM date_params)
     group by ${columnStr}
-
     union all
-
     select 
         ${columnStr}, 'D1' as user_level, count(1) as total
     from filter_table
     where d1_time is not null and (d1_time BETWEEN (SELECT start_time FROM date_params) AND (SELECT end_time FROM date_params))
     group by ${columnStr}
-
     union all
-
     select 
         ${columnStr}, 'D2' as user_level, count(1) as total
     from filter_table

@@ -5,7 +5,7 @@
   "groupId" : "2e2220ca1c424052ba4fa20a1e7370f8",
   "name" : "负向事件",
   "createTime" : null,
-  "updateTime" : 1775734740153,
+  "updateTime" : 1776236256443,
   "lock" : null,
   "createBy" : "admin",
   "updateBy" : "admin",
@@ -88,7 +88,7 @@
   "requestBody" : "",
   "headers" : [ ],
   "paths" : [ ],
-  "responseBody" : null,
+  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": {\n        \"total_count\": 4,\n        \"total_page\": 1,\n        \"list\": [{\n            \"uuid\": \"02143208714054729217\",\n            \"url\": \"https://www.hiascend.com/forum/thread-02143208714054729217-1-1.html\",\n            \"title\": \"msprof执行报错  无法生成采集文件\",\n            \"author\": \"hid_9esu1chmwo_lbl3\",\n            \"category_name\": \"问题求助\",\n            \"status\": \"resolved\",\n            \"created_at\": \"2026-03-13 00:07:35\",\n            \"has_accepted_answer\": \"true\",\n            \"closed\": null,\n            \"score\": 73,\n            \"risk_level\": \"P1\",\n            \"negative_type_name\": \"问题求助\",\n            \"matched_keywords\": {\n                \"title\": [\"无法\", \"报错\"],\n                \"post\": [\"无法\", \"失败\", \"报错\"]\n            },\n            \"eval_criteria\": \"关键词匹配\"\n        }, {\n            \"uuid\": \"0297203613575480217\",\n            \"url\": \"https://www.hiascend.com/forum/thread-0297203613575480217-1-1.html\",\n            \"title\": \"[310P1][ARM64] 宿主机无法创建 vNPU，报错 create vnpu failed，Hugepages 始终显示 0/0\",\n            \"author\": \"rory\",\n            \"category_name\": \"应用开发\",\n            \"status\": \"resolved\",\n            \"created_at\": \"2026-01-12 23:19:36\",\n            \"has_accepted_answer\": \"true\",\n            \"closed\": null,\n            \"score\": 73,\n            \"risk_level\": \"P1\",\n            \"negative_type_name\": \"问题求助\",\n            \"matched_keywords\": {\n                \"title\": [\"无法\", \"报错\"],\n                \"post\": [\"无法\", \"失败\", \"报错\"]\n            },\n            \"eval_criteria\": \"询问性质帖子; 包含确认性关键词\"\n        }, {\n            \"uuid\": \"0296203309540710084\",\n            \"url\": \"https://www.hiascend.com/forum/thread-0296203309540710084-1-1.html\",\n            \"title\": \"求助CUBE核上DATACOPY失效的问题\",\n            \"author\": \"zxyaang\",\n            \"category_name\": \"问题求助\",\n            \"status\": \"resolved\",\n            \"created_at\": \"2026-01-09 10:52:21\",\n            \"has_accepted_answer\": \"true\",\n            \"closed\": null,\n            \"score\": 81,\n            \"risk_level\": \"P1\",\n            \"negative_type_name\": \"问题求助\",\n            \"matched_keywords\": {\n                \"title\": [\"求助\", \"问题\"],\n                \"post\": [\"求助\", \"无法\", \"失败\"]\n            },\n            \"eval_criteria\": \"询问性质帖子; 包含确认性关键词\"\n        }, {\n            \"uuid\": \"0296203253731686070\",\n            \"url\": \"https://www.hiascend.com/forum/thread-0296203253731686070-1-1.html\",\n            \"title\": \"求助：项目从310P迁移到910B上出现507015问题。经过调试总结问题如下\",\n            \"author\": \"hid_aihtdury_cp2w-g\",\n            \"category_name\": \"问题求助\",\n            \"status\": \"resolved\",\n            \"created_at\": \"2026-01-08 19:22:12\",\n            \"has_accepted_answer\": \"true\",\n            \"closed\": null,\n            \"score\": 71,\n            \"risk_level\": \"P1\",\n            \"negative_type_name\": \"问题求助\",\n            \"matched_keywords\": {\n                \"title\": [\"求助\", \"问题\"],\n                \"post\": [\"求助\", \"失败\"]\n            },\n            \"eval_criteria\": \"询问性质帖子; 包含确认性关键词\"\n        }],\n        \"page_size\": 10\n    },\n    \"timestamp\": 1775734735797,\n    \"executeTime\": 7\n}",
   "description" : null,
   "requestBodyDefinition" : null,
   "responseBodyDefinition" : {
@@ -437,11 +437,11 @@ if ("cannopen" == community){
 // page param
 var page_num = 1;
 if (pageNum != null and pageNum != ""){
-    page_num = body.pageNum;
+    page_num = pageNum;
 }
 var page_size = 10;
 if (pageSize != null and pageSize != ""){
-    page_size = body.pageSize;
+    page_size = pageSize;
 }
 var offset = (page_num - 1) * page_size
 var sql = """

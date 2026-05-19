@@ -5,7 +5,7 @@
   "groupId" : "2e2220ca1c424052ba4fa20a1e7370f8",
   "name" : "项目集成引用度",
   "createTime" : null,
-  "updateTime" : 1773218699301,
+  "updateTime" : 1775054834916,
   "lock" : null,
   "createBy" : null,
   "updateBy" : "admin",
@@ -13,15 +13,15 @@
   "method" : "GET",
   "parameters" : [ {
     "name" : "community",
-    "value" : "mindie",
+    "value" : "openeuler",
     "description" : "社区名称",
     "required" : true,
     "dataType" : "String",
     "type" : null,
     "defaultValue" : null,
-    "validateType" : null,
-    "error" : null,
-    "expression" : null,
+    "validateType" : "pattern",
+    "error" : "community 参数格式非法",
+    "expression" : "^[a-zA-Z]{1,32}$",
     "children" : null
   } ],
   "options" : [ {
@@ -40,7 +40,7 @@
   "requestBody" : "",
   "headers" : [ ],
   "paths" : [ ],
-  "responseBody" : "{\n    \"code\": 1,\n    \"message\": \"success\",\n    \"data\": {\n        \"count\": 1000\n    },\n    \"timestamp\": 1773218687216,\n    \"executeTime\": 2\n}",
+  "responseBody" : "{\n    \"code\": 0,\n    \"message\": \"community 参数格式非法\",\n    \"data\": null,\n    \"timestamp\": 1775054806412,\n    \"executeTime\": 0\n}",
   "description" : "查询指定社区领域主流项目的适配、集成、引用度。",
   "requestBodyDefinition" : null,
   "responseBodyDefinition" : {
@@ -131,12 +131,10 @@
 }
 ================================
 community = community.toLowerCase()
-
 var sql = """
 SELECT count(*)
 FROM fact_${community}_repo_search
 WHERE stargazers_count > 0;
 """
-
 var resp = db.select(sql)
 return resp[0]
