@@ -19,6 +19,7 @@ COMMUNITY_MAP = {
     "pta":                 "pta",
     "unifiedbus":          "unifiedbus",
     "sgl":                 "sgl",
+    "sglang":              "sgl",
     "pytorch":             "pytorch",
     "triton":              "triton",
     "mindspeed":           "mindspeed",
